@@ -8,6 +8,7 @@ import {
   getExerciseImageUrl,
 } from "@/lib/exercise-data";
 import { MuscleMap } from "@/components/exercises/muscle-map";
+import { ProgressionChart } from "@/components/records/progression-chart";
 import { usePersonalRecord } from "@/lib/hooks/use-personal-records";
 import {
   formatDate,
@@ -181,6 +182,11 @@ function ExerciseDrawer({
                   </p>
                 </div>
               )}
+
+              {/* Progression Chart */}
+              <div className="cyber-card">
+                <ProgressionChart exerciseId={exerciseId} />
+              </div>
 
               {/* YouTube Link */}
               <a

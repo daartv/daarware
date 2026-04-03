@@ -7,6 +7,7 @@ import { getExerciseById, getExerciseImageUrl } from "@/lib/exercise-data";
 import { usePersonalRecord } from "@/lib/hooks/use-personal-records";
 import { formatDate, timeAgo, getPRStaleness, getNudgeInfo, youtubeSearchUrl } from "@/lib/utils";
 import { MuscleMap } from "@/components/exercises/muscle-map";
+import { ProgressionChart } from "@/components/records/progression-chart";
 
 export default function ExerciseDetailPage({
   params,
@@ -113,6 +114,11 @@ export default function ExerciseDetailPage({
             </p>
           </div>
         )}
+
+        {/* Progression Chart */}
+        <div className="cyber-card">
+          <ProgressionChart exerciseId={decodeURIComponent(id)} />
+        </div>
 
         {/* YouTube Link */}
         <a

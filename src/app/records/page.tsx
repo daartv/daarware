@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/header";
 import { usePersonalRecords } from "@/lib/hooks/use-personal-records";
 import { getExerciseById } from "@/lib/exercise-data";
 import { ExerciseInfoButton } from "@/components/exercises/exercise-info-drawer";
+import { ProgressionChart } from "@/components/records/progression-chart";
 import {
   formatDate,
   timeAgo,
@@ -108,6 +109,11 @@ export default function RecordsPage() {
                   <div className="ml-auto text-xs text-cyber-text-muted">
                     {formatDate(record.date)} &middot; {days}d ago
                   </div>
+                </div>
+
+                {/* Progression Chart */}
+                <div className="mt-3 pt-3 border-t border-cyber-border">
+                  <ProgressionChart exerciseId={record.exerciseId} compact />
                 </div>
               </div>
             );
