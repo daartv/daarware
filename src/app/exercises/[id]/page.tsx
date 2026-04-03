@@ -8,6 +8,7 @@ import { usePersonalRecord } from "@/lib/hooks/use-personal-records";
 import { formatDate, timeAgo, getPRStaleness, getNudgeInfo, youtubeSearchUrl } from "@/lib/utils";
 import { MuscleMap } from "@/components/exercises/muscle-map";
 import { ProgressionChart } from "@/components/records/progression-chart";
+import { EstMaxLabel } from "@/components/ui/est-max-label";
 
 export default function ExerciseDetailPage({
   params,
@@ -105,8 +106,8 @@ export default function ExerciseDetailPage({
               <span className="text-cyber-text-muted text-sm">
                 x {pr.reps} reps
               </span>
-              <span className="text-cyber-text-muted text-xs ml-auto">
-                est 1RM: <span className="text-cyber-green font-mono">{pr.estimated1RM}</span>
+              <span className="text-xs text-cyber-text-muted ml-auto">
+                <EstMaxLabel value={pr.estimated1RM} className="text-xs" />
               </span>
             </div>
             <p className="text-xs text-cyber-text-muted mt-1">

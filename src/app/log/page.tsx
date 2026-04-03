@@ -12,6 +12,7 @@ import { todayISO, calculate1RM, formatDate, timeAgo } from "@/lib/utils";
 import type { WorkoutExercise, WorkoutSet } from "@/lib/db";
 import Image from "next/image";
 import { ExerciseInfoButton } from "@/components/exercises/exercise-info-drawer";
+import { EstMaxLabel, EstMaxInline } from "@/components/ui/est-max-label";
 
 type Step = "setup" | "logging" | "summary";
 
@@ -478,10 +479,7 @@ export default function LogWorkoutPage() {
                     x {pr.reps}
                   </span>
                   <span className="text-xs text-cyber-text-muted ml-auto">
-                    est 1RM:{" "}
-                    <span className="text-cyber-green font-mono font-bold">
-                      {pr.estimated1RM}
-                    </span>
+                    <EstMaxInline value={pr.estimated1RM} />
                   </span>
                 </div>
               </div>
@@ -633,28 +631,24 @@ export default function LogWorkoutPage() {
             )}
           </div>
 
-          {/* Est 1RM feedback */}
+          {/* Est Max feedback */}
           {exercise.sets.some((s) => s.weight > 0 && s.reps > 0) && (
             <div className="text-center">
-              <p className="text-[0.65rem] text-cyber-text-muted uppercase tracking-wider">
-                Best set est. 1RM:{" "}
-                <span
-                  className={`font-mono font-bold ${
-                    hasNewPR ? "text-cyber-green text-glow-green" : "text-cyber-cyan"
-                  }`}
-                >
-                  {Math.max(
+              <span className="text-[0.65rem] text-cyber-text-muted uppercase tracking-wider">
+                <EstMaxLabel
+                  value={Math.max(
                     ...exercise.sets
                       .filter((s) => s.weight > 0 && s.reps > 0)
                       .map((s) => calculate1RM(s.weight, s.reps))
                   )}
-                </span>
+                  className={`text-[0.65rem] ${hasNewPR ? "text-glow-green" : ""}`}
+                />
                 {pr && (
                   <span className="text-cyber-text-dim ml-1">
                     / PR: {pr.estimated1RM}
                   </span>
                 )}
-              </p>
+              </span>
             </div>
           )}
 
@@ -774,7 +768,7 @@ export default function LogWorkoutPage() {
                     {bestSet.weight} x {bestSet.reps}
                   </span>
                   <span className="text-cyber-text-muted text-xs">
-                    (est 1RM: {bestSet.est})
+                    (<EstMaxInline value={bestSet.est} />)
                   </span>
                 </div>
               )}

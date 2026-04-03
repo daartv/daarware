@@ -208,8 +208,8 @@ export default function Dashboard() {
                         {exercise?.name ?? record.exerciseId}
                       </p>
                       <p className="text-xs font-mono text-cyber-text-muted">
-                        {record.weight} x {record.reps} &middot; est 1RM:{" "}
-                        {record.estimated1RM}
+                        {record.weight} x {record.reps} &middot; Est. Max:{" "}
+                        <span className="text-cyber-green">{record.estimated1RM}</span>
                       </p>
                     </div>
                     {staleness === "fresh" ? (

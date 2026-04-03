@@ -5,6 +5,7 @@ import { usePersonalRecords } from "@/lib/hooks/use-personal-records";
 import { getExerciseById } from "@/lib/exercise-data";
 import { ExerciseInfoButton } from "@/components/exercises/exercise-info-drawer";
 import { ProgressionChart } from "@/components/records/progression-chart";
+import { EstMaxLabel } from "@/components/ui/est-max-label";
 import {
   formatDate,
   timeAgo,
@@ -101,10 +102,7 @@ export default function RecordsPage() {
                     </span>
                   </div>
                   <div className="text-xs text-cyber-text-muted">
-                    est 1RM:{" "}
-                    <span className="text-cyber-green font-mono">
-                      {record.estimated1RM}
-                    </span>
+                    <EstMaxLabel value={record.estimated1RM} className="text-xs" />
                   </div>
                   <div className="ml-auto text-xs text-cyber-text-muted">
                     {formatDate(record.date)} &middot; {days}d ago
