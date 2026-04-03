@@ -37,29 +37,40 @@ export default function Dashboard() {
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-3 gap-2">
         <Link
           href="/log"
-          className="cyber-card cyber-corners cyber-corners-bottom flex flex-col items-center gap-2 py-4 text-center hover:border-cyber-border-active"
+          className="cyber-card cyber-corners cyber-corners-bottom flex flex-col items-center gap-1.5 py-3 text-center hover:border-cyber-border-active"
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyber-cyan">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyber-cyan">
             <path d="M12 5v14M5 12h14" />
           </svg>
-          <span className="text-sm font-semibold uppercase tracking-wider text-cyber-cyan">
-            Log Workout
+          <span className="text-xs font-semibold uppercase tracking-wider text-cyber-cyan">
+            Log
           </span>
         </Link>
         <Link
           href="/exercises"
-          className="cyber-card cyber-corners cyber-corners-bottom flex flex-col items-center gap-2 py-4 text-center hover:border-cyber-border-active"
+          className="cyber-card cyber-corners cyber-corners-bottom flex flex-col items-center gap-1.5 py-3 text-center hover:border-cyber-border-active"
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyber-yellow">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyber-yellow">
             <ellipse cx="12" cy="5" rx="9" ry="3" />
             <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
             <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
           </svg>
-          <span className="text-sm font-semibold uppercase tracking-wider text-cyber-yellow">
-            Exercise DB
+          <span className="text-xs font-semibold uppercase tracking-wider text-cyber-yellow">
+            Database
+          </span>
+        </Link>
+        <Link
+          href="/stats"
+          className="cyber-card cyber-corners cyber-corners-bottom flex flex-col items-center gap-1.5 py-3 text-center hover:border-cyber-border-active"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyber-green">
+            <path d="M18 20V10M12 20V4M6 20v-6" />
+          </svg>
+          <span className="text-xs font-semibold uppercase tracking-wider text-cyber-green">
+            Stats
           </span>
         </Link>
       </div>

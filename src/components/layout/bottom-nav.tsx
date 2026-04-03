@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { href: "/", label: "HUD", icon: HudIcon },
   { href: "/log", label: "LOG", icon: LogIcon },
-  { href: "/exercises", label: "DB", icon: DbIcon },
+  { href: "/stats", label: "STATS", icon: StatsIcon },
   { href: "/templates", label: "PLANS", icon: PlanIcon },
   { href: "/records", label: "PR", icon: PrIcon },
 ] as const;
@@ -65,12 +65,10 @@ function LogIcon({ active }: { active: boolean }) {
   );
 }
 
-function DbIcon({ active }: { active: boolean }) {
+function StatsIcon({ active }: { active: boolean }) {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2 : 1.5}>
-      <ellipse cx="12" cy="5" rx="9" ry="3" />
-      <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
-      <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
+      <path d="M18 20V10M12 20V4M6 20v-6" />
     </svg>
   );
 }
