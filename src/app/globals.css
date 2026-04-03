@@ -1,26 +1,338 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================
+   DAARWARE Design System
+   Cyberpunk 2077 Cyberware-inspired tokens
+   ============================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --- Colors: Background --- */
+  --color-cyber-bg: #0A0A12;
+  --color-cyber-bg-light: #0E0E1A;
+  --color-cyber-surface: #111520;
+  --color-cyber-surface-hover: #171C2A;
+  --color-cyber-overlay: rgba(15, 20, 25, 0.85);
+
+  /* --- Colors: Accents --- */
+  --color-cyber-cyan: #2FD9D9;
+  --color-cyber-cyan-dim: rgba(47, 217, 217, 0.15);
+  --color-cyber-cyan-glow: rgba(47, 217, 217, 0.4);
+  --color-cyber-yellow: #E8C84A;
+  --color-cyber-yellow-dim: rgba(232, 200, 74, 0.15);
+  --color-cyber-red: #E83A3A;
+  --color-cyber-red-dim: rgba(232, 58, 58, 0.15);
+  --color-cyber-green: #3AD977;
+  --color-cyber-green-dim: rgba(58, 217, 119, 0.15);
+  --color-cyber-pink: #D93A8C;
+
+  /* --- Colors: Text --- */
+  --color-cyber-text: #D4D4D4;
+  --color-cyber-text-bright: #F0F0F0;
+  --color-cyber-text-muted: #6B7280;
+  --color-cyber-text-dim: #3A3F4B;
+
+  /* --- Colors: Borders --- */
+  --color-cyber-border: rgba(47, 217, 217, 0.2);
+  --color-cyber-border-active: rgba(47, 217, 217, 0.5);
+  --color-cyber-border-red: rgba(232, 58, 58, 0.3);
+
+  /* --- Shadows --- */
+  --shadow-neon-cyan: 0 0 8px rgba(47, 217, 217, 0.3);
+  --shadow-neon-cyan-lg: 0 0 16px rgba(47, 217, 217, 0.4), 0 0 32px rgba(47, 217, 217, 0.15);
+  --shadow-neon-red: 0 0 8px rgba(232, 58, 58, 0.3);
+  --shadow-neon-green: 0 0 8px rgba(58, 217, 119, 0.3);
+  --shadow-neon-yellow: 0 0 8px rgba(232, 200, 74, 0.3);
+
+  /* --- Fonts --- */
+  --font-display: var(--font-rajdhani);
+  --font-mono: var(--font-jetbrains);
+
+  /* --- Animations --- */
+  --animate-pulse-neon: pulse-neon 2s ease-in-out infinite;
+  --animate-glow-in: glow-in 0.3s ease-out forwards;
+  --animate-slide-up: slide-up 0.25s ease-out;
+  --animate-fade-in: fade-in 0.2s ease-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* --- Keyframes --- */
+@keyframes pulse-neon {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes glow-in {
+  from { box-shadow: none; opacity: 0.8; }
+  to { box-shadow: var(--shadow-neon-cyan); opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Base --- */
+body {
+  background-color: var(--color-cyber-bg);
+  color: var(--color-cyber-text);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Component Layer --- */
+@layer components {
+  /* Bracket-corner card (like Cyberware slots) */
+  .cyber-card {
+    position: relative;
+    background: var(--color-cyber-surface);
+    border: 1px solid var(--color-cyber-border);
+    padding: 1rem;
+    transition: all 0.2s ease;
+  }
+  .cyber-card:hover {
+    border-color: var(--color-cyber-border-active);
+    box-shadow: var(--shadow-neon-cyan);
+  }
+
+  /* Bracket corner decorations */
+  .cyber-corners {
+    position: relative;
+  }
+  .cyber-corners::before,
+  .cyber-corners::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-color: var(--color-cyber-cyan);
+    pointer-events: none;
+  }
+  .cyber-corners::before {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid;
+    border-left: 2px solid;
+  }
+  .cyber-corners::after {
+    top: -1px;
+    right: -1px;
+    border-top: 2px solid;
+    border-right: 2px solid;
+  }
+
+  .cyber-corners-bottom {
+    position: relative;
+  }
+  .cyber-corners-bottom::before,
+  .cyber-corners-bottom::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-color: var(--color-cyber-cyan);
+    pointer-events: none;
+  }
+  .cyber-corners-bottom::before {
+    bottom: -1px;
+    left: -1px;
+    border-bottom: 2px solid;
+    border-left: 2px solid;
+  }
+  .cyber-corners-bottom::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+  }
+
+  /* Primary button */
+  .cyber-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--color-cyber-border);
+    background: var(--color-cyber-surface);
+    color: var(--color-cyber-cyan);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cyber-btn:hover {
+    border-color: var(--color-cyber-cyan);
+    box-shadow: var(--shadow-neon-cyan);
+    background: var(--color-cyber-cyan-dim);
+  }
+  .cyber-btn:active {
+    transform: scale(0.98);
+  }
+
+  .cyber-btn-primary {
+    background: var(--color-cyber-cyan);
+    color: var(--color-cyber-bg);
+    border-color: var(--color-cyber-cyan);
+  }
+  .cyber-btn-primary:hover {
+    background: #3AEAEA;
+    box-shadow: var(--shadow-neon-cyan-lg);
+  }
+
+  .cyber-btn-danger {
+    color: var(--color-cyber-red);
+    border-color: var(--color-cyber-border-red);
+  }
+  .cyber-btn-danger:hover {
+    border-color: var(--color-cyber-red);
+    box-shadow: var(--shadow-neon-red);
+    background: var(--color-cyber-red-dim);
+  }
+
+  /* Input */
+  .cyber-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    background: var(--color-cyber-bg);
+    border: 1px solid var(--color-cyber-border);
+    border-bottom: 2px solid var(--color-cyber-border);
+    color: var(--color-cyber-text);
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  .cyber-input:focus {
+    border-color: var(--color-cyber-border-active);
+    border-bottom-color: var(--color-cyber-cyan);
+    box-shadow: 0 2px 8px rgba(47, 217, 217, 0.15);
+  }
+  .cyber-input::placeholder {
+    color: var(--color-cyber-text-dim);
+  }
+
+  /* Badge */
+  .cyber-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid;
+  }
+
+  .cyber-badge-cyan {
+    color: var(--color-cyber-cyan);
+    border-color: rgba(47, 217, 217, 0.3);
+    background: var(--color-cyber-cyan-dim);
+  }
+  .cyber-badge-yellow {
+    color: var(--color-cyber-yellow);
+    border-color: rgba(232, 200, 74, 0.3);
+    background: var(--color-cyber-yellow-dim);
+  }
+  .cyber-badge-red {
+    color: var(--color-cyber-red);
+    border-color: rgba(232, 58, 58, 0.3);
+    background: var(--color-cyber-red-dim);
+  }
+  .cyber-badge-green {
+    color: var(--color-cyber-green);
+    border-color: rgba(58, 217, 119, 0.3);
+    background: var(--color-cyber-green-dim);
+  }
+
+  /* Divider - red horizontal line like the game */
+  .cyber-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-cyber-red) 20%,
+      var(--color-cyber-red) 80%,
+      transparent
+    );
+    opacity: 0.5;
+  }
+
+  /* Section header - yellow uppercase like the game */
+  .cyber-heading {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-cyber-yellow);
+  }
+
+  /* Slot (empty add slot like the game's "+" slots) */
+  .cyber-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed var(--color-cyber-border);
+    background: transparent;
+    color: var(--color-cyber-text-dim);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 3rem;
+  }
+  .cyber-slot:hover {
+    border-color: var(--color-cyber-border-active);
+    color: var(--color-cyber-cyan);
+    background: var(--color-cyber-cyan-dim);
+  }
+
+  /* Text glow */
+  .text-glow-cyan {
+    text-shadow: 0 0 8px rgba(47, 217, 217, 0.5);
+  }
+  .text-glow-green {
+    text-shadow: 0 0 8px rgba(58, 217, 119, 0.5);
+  }
+  .text-glow-red {
+    text-shadow: 0 0 8px rgba(232, 58, 58, 0.5);
+  }
+
+  /* Scanline overlay */
+  .scanlines::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.06) 2px,
+      rgba(0, 0, 0, 0.06) 4px
+    );
+    z-index: 9999;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* --- Utility Layer --- */
+@layer utilities {
+  .border-cyber { border-color: var(--color-cyber-border); }
+  .border-cyber-active { border-color: var(--color-cyber-border-active); }
 }
