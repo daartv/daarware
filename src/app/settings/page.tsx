@@ -11,9 +11,11 @@ import {
 } from "@/lib/data-transfer";
 
 export default function SettingsPage() {
-  const settings = useSettings();
+  const { data: settings, isLoading } = useSettings();
   const [importing, setImporting] = useState(false);
   const [message, setMessage] = useState("");
+
+  const weightUnit = settings?.weightUnit ?? "lbs";
 
   const handleExport = async () => {
     try {
@@ -72,9 +74,10 @@ export default function SettingsPage() {
               <button
                 key={unit}
                 onClick={() => updateSettings({ weightUnit: unit })}
+                disabled={isLoading}
                 className={`cyber-btn flex-1 ${
-                  settings.weightUnit === unit ? "cyber-btn-primary" : ""
-                }`}
+                  weightUnit === unit ? "cyber-btn-primary" : ""
+                } ${isLoading ? "opacity-50" : ""}`}
               >
                 {unit.toUpperCase()}
               </button>
