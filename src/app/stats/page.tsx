@@ -26,19 +26,19 @@ const RANGE_LABELS: Record<TimeRange, string> = {
   all: "All Time",
 };
 
-const CYAN_SHADES = [
-  "#2FD9D9",
-  "#28B8B8",
-  "#209999",
-  "#1A7A7A",
-  "#145C5C",
-  "#0E3F3F",
-  "#3AD977",
-  "#E8C84A",
-  "#D93A8C",
-  "#E83A3A",
-  "#6B8FD9",
-  "#D9A83A",
+const NEON_PALETTE = [
+  "#2FD9D9", // cyan
+  "#D93A8C", // hot pink
+  "#3AD977", // green
+  "#E8C84A", // gold
+  "#6B8FD9", // blue
+  "#E83A3A", // red
+  "#D9A83A", // amber
+  "#A855F7", // purple
+  "#F97316", // orange
+  "#14B8A6", // teal
+  "#EC4899", // pink
+  "#84CC16", // lime
 ];
 
 function getStartDate(range: TimeRange): Date {
@@ -193,7 +193,7 @@ export default function StatsPage() {
                         {muscleData.map((_, i) => (
                           <Cell
                             key={i}
-                            fill={CYAN_SHADES[i % CYAN_SHADES.length]}
+                            fill={NEON_PALETTE[i % NEON_PALETTE.length]}
                           />
                         ))}
                       </Pie>
@@ -220,7 +220,7 @@ export default function StatsPage() {
                         <div
                           className="w-2 h-2"
                           style={{
-                            background: CYAN_SHADES[i % CYAN_SHADES.length],
+                            background: NEON_PALETTE[i % NEON_PALETTE.length],
                           }}
                         />
                         <span className="text-[0.6rem] text-cyber-text-muted">
@@ -254,7 +254,7 @@ export default function StatsPage() {
                         {planData.map((_, i) => (
                           <Cell
                             key={i}
-                            fill={CYAN_SHADES[i % CYAN_SHADES.length]}
+                            fill={NEON_PALETTE[i % NEON_PALETTE.length]}
                           />
                         ))}
                       </Pie>
@@ -280,7 +280,7 @@ export default function StatsPage() {
                         <div
                           className="w-2 h-2"
                           style={{
-                            background: CYAN_SHADES[i % CYAN_SHADES.length],
+                            background: NEON_PALETTE[i % NEON_PALETTE.length],
                           }}
                         />
                         <span className="text-[0.6rem] text-cyber-text-muted">
@@ -335,7 +335,8 @@ export default function StatsPage() {
                         {exerciseData.map((_, i) => (
                           <Cell
                             key={i}
-                            fill={i === 0 ? "#2FD9D9" : "rgba(47,217,217,0.5)"}
+                            fill={NEON_PALETTE[i % NEON_PALETTE.length]}
+                            opacity={i === 0 ? 1 : 0.75}
                           />
                         ))}
                       </Bar>
