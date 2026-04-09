@@ -5,8 +5,6 @@ import { db, type UserSettings } from "@/lib/db";
 
 export function useSettings() {
   const settings = useLiveQuery(() => db.userSettings.toCollection().first());
-  // Return null while loading so consumers can show a loading state
-  // instead of briefly flashing the wrong default
   return { data: settings ?? null, isLoading: settings === undefined };
 }
 
@@ -17,6 +15,6 @@ export async function updateSettings(
   if (existing) {
     await db.userSettings.update(existing.id, data);
   } else {
-    await db.userSettings.add({ ...data, weightUnit: data.weightUnit ?? "lbs" } as UserSettings);
+    await db.userSettings.add({ ...data } as UserSettings);
   }
 }

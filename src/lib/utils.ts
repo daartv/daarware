@@ -74,19 +74,6 @@ export function getNudgeInfo(staleness: "stale" | "outdated" | "critical") {
 }
 
 /**
- * Convert between kg and lbs.
- */
-export function convertWeight(
-  weight: number,
-  from: "kg" | "lbs",
-  to: "kg" | "lbs"
-): number {
-  if (from === to) return weight;
-  if (from === "kg" && to === "lbs") return Math.round(weight * 2.20462 * 10) / 10;
-  return Math.round(weight / 2.20462 * 10) / 10;
-}
-
-/**
  * Today's date in ISO format (YYYY-MM-DD).
  */
 export function todayISO(): string {

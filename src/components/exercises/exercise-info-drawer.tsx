@@ -10,6 +10,8 @@ import {
 import { MuscleMap } from "@/components/exercises/muscle-map";
 import { ProgressionChart } from "@/components/records/progression-chart";
 import { EstMaxLabel } from "@/components/ui/est-max-label";
+import { FavoriteButton } from "@/components/exercises/favorite-button";
+import { useFavorites } from "@/lib/hooks/use-favorites";
 import { usePersonalRecord } from "@/lib/hooks/use-personal-records";
 import {
   formatDate,
@@ -67,6 +69,7 @@ function ExerciseDrawer({
 }) {
   const exercise = getExerciseById(exerciseId);
   const pr = usePersonalRecord(exerciseId);
+  const { toggle: toggleFav, isFavorite } = useFavorites();
 
   if (!exercise) return null;
 
@@ -87,9 +90,15 @@ function ExerciseDrawer({
 
             <div className="px-4 pb-6 space-y-4 max-w-lg mx-auto">
               {/* Title */}
-              <Drawer.Title className="text-lg font-bold text-cyber-text-bright">
-                {exercise.name}
-              </Drawer.Title>
+              <div className="flex items-center justify-between">
+                <Drawer.Title className="text-lg font-bold text-cyber-text-bright">
+                  {exercise.name}
+                </Drawer.Title>
+                <FavoriteButton
+                  isFavorite={isFavorite(exerciseId)}
+                  onToggle={() => toggleFav(exerciseId)}
+                />
+              </div>
 
               {/* Images */}
               {exercise.images.length > 0 && (

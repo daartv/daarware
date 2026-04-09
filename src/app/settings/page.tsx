@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Header } from "@/components/layout/header";
-import { useSettings, updateSettings } from "@/lib/hooks/use-settings";
+// settings hooks available if needed in future
 import {
   exportAllData,
   importAllData,
@@ -11,11 +11,8 @@ import {
 } from "@/lib/data-transfer";
 
 export default function SettingsPage() {
-  const { data: settings, isLoading } = useSettings();
   const [importing, setImporting] = useState(false);
   const [message, setMessage] = useState("");
-
-  const weightUnit = settings?.weightUnit ?? "lbs";
 
   const handleExport = async () => {
     try {
@@ -66,27 +63,6 @@ export default function SettingsPage() {
       <Header title="Settings" back />
 
       <div className="px-4 pt-4 space-y-6 max-w-lg mx-auto pb-4">
-        {/* Weight Unit */}
-        <section>
-          <h2 className="cyber-heading mb-2">Weight Unit</h2>
-          <div className="flex gap-2">
-            {(["lbs", "kg"] as const).map((unit) => (
-              <button
-                key={unit}
-                onClick={() => updateSettings({ weightUnit: unit })}
-                disabled={isLoading}
-                className={`cyber-btn flex-1 ${
-                  weightUnit === unit ? "cyber-btn-primary" : ""
-                } ${isLoading ? "opacity-50" : ""}`}
-              >
-                {unit.toUpperCase()}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <div className="cyber-divider" />
-
         {/* Data Management */}
         <section>
           <h2 className="cyber-heading mb-2">Data Management</h2>

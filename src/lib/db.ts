@@ -44,7 +44,11 @@ export interface PersonalRecord {
 
 export interface UserSettings {
   id: number;
-  weightUnit: "kg" | "lbs";
+}
+
+export interface FavoriteExercise {
+  id: number;
+  exerciseId: string;
 }
 
 // --- Database ---
@@ -54,6 +58,7 @@ const db = new Dexie("DaarWareDB") as Dexie & {
   workoutTemplates: EntityTable<WorkoutTemplate, "id">;
   personalRecords: EntityTable<PersonalRecord, "id">;
   userSettings: EntityTable<UserSettings, "id">;
+  favorites: EntityTable<FavoriteExercise, "id">;
 };
 
 db.version(1).stores({
@@ -61,6 +66,14 @@ db.version(1).stores({
   workoutTemplates: "++id, name",
   personalRecords: "++id, exerciseId, date, [exerciseId+date]",
   userSettings: "++id",
+});
+
+db.version(2).stores({
+  workoutLogs: "++id, date, templateId",
+  workoutTemplates: "++id, name",
+  personalRecords: "++id, exerciseId, date, [exerciseId+date]",
+  userSettings: "++id",
+  favorites: "++id, &exerciseId",
 });
 
 export { db };

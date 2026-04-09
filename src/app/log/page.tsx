@@ -95,12 +95,33 @@ export default function LogWorkoutPage() {
 
   const removeExercise = useCallback(
     (index: number) => {
+      if (exercises.length <= 1 && step === "logging") {
+        // Last exercise removed during logging — go to setup
+        setExercises([]);
+        setStep("setup");
+        return;
+      }
       setExercises((prev) => prev.filter((_, i) => i !== index));
       if (currentExIdx >= exercises.length - 1 && currentExIdx > 0) {
         setCurrentExIdx((p) => p - 1);
       }
     },
-    [currentExIdx, exercises.length]
+    [currentExIdx, exercises.length, step]
+  );
+
+  const moveExercise = useCallback(
+    (fromIdx: number, direction: "up" | "down") => {
+      const toIdx = direction === "up" ? fromIdx - 1 : fromIdx + 1;
+      setExercises((prev) => {
+        if (toIdx < 0 || toIdx >= prev.length) return prev;
+        const next = [...prev];
+        [next[fromIdx], next[toIdx]] = [next[toIdx], next[fromIdx]];
+        return next;
+      });
+      // Follow the current exercise
+      setCurrentExIdx(toIdx);
+    },
+    []
   );
 
   const addSet = useCallback((exerciseIndex: number) => {
@@ -460,6 +481,42 @@ export default function LogWorkoutPage() {
               </div>
             </div>
 
+            {/* Exercise Toolbar */}
+            <div className="mt-3 pt-3 border-t border-cyber-border flex items-center justify-between">
+              <div className="flex gap-1.5">
+                <button
+                  onClick={() => moveExercise(currentExIdx, "up")}
+                  disabled={isFirst}
+                  className="cyber-btn text-[0.6rem] px-2 py-1 disabled:opacity-20"
+                  title="Move up"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                </button>
+                <button
+                  onClick={() => moveExercise(currentExIdx, "down")}
+                  disabled={isLast}
+                  className="cyber-btn text-[0.6rem] px-2 py-1 disabled:opacity-20"
+                  title="Move down"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                </button>
+                <button
+                  onClick={() => setShowPicker(true)}
+                  className="cyber-btn text-[0.6rem] px-2 py-1"
+                  title="Add exercise"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+              </div>
+              <button
+                onClick={() => removeExercise(currentExIdx)}
+                className="cyber-btn cyber-btn-danger text-[0.6rem] px-2 py-1"
+                title="Remove exercise"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+              </button>
+            </div>
+
             {/* Current PR */}
             {pr ? (
               <div className="mt-3 pt-3 border-t border-cyber-border">
@@ -675,6 +732,13 @@ export default function LogWorkoutPage() {
             )}
           </div>
         </div>
+
+        {showPicker && (
+          <ExercisePicker
+            onSelect={addExercise}
+            onClose={() => setShowPicker(false)}
+          />
+        )}
       </div>
     );
   }

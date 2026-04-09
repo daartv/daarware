@@ -4,6 +4,8 @@ import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { ExerciseInfoButton } from "@/components/exercises/exercise-info-drawer";
+import { FavoriteButton } from "@/components/exercises/favorite-button";
+import { useFavorites } from "@/lib/hooks/use-favorites";
 import {
   filterExercises,
   ALL_MUSCLES,
@@ -17,10 +19,11 @@ export default function ExercisesPage() {
   const [equipment, setEquipment] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [expandedFilter, setExpandedFilter] = useState<string | null>(null);
+  const { favoriteIds, toggle: toggleFav, isFavorite } = useFavorites();
 
   const exercises = useMemo(
-    () => filterExercises({ query, muscles, equipment, categories }),
-    [query, muscles, equipment, categories]
+    () => filterExercises({ query, muscles, equipment, categories, favoriteIds }),
+    [query, muscles, equipment, categories, favoriteIds]
   );
 
   const hasFilters = muscles.length > 0 || equipment.length > 0 || categories.length > 0;
@@ -159,35 +162,34 @@ export default function ExercisesPage() {
         {/* Results */}
         <div className="space-y-2 pb-4">
           {exercises.slice(0, 50).map((exercise) => (
-            <Link
-              key={exercise.id}
-              href={`/exercises/${exercise.id}`}
-              className="cyber-card block py-2.5 px-3"
-            >
+            <div key={exercise.id} className="cyber-card py-2.5 px-3">
               <div className="flex items-start justify-between gap-2">
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold truncate">
-                    {exercise.name}
-                  </p>
+                <Link href={`/exercises/${exercise.id}`} className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    {isFavorite(exercise.id) && (
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="#E8C84A" stroke="none" className="flex-shrink-0">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                    )}
+                    <p className="text-sm font-semibold truncate">
+                      {exercise.name}
+                    </p>
+                  </div>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {exercise.primaryMuscles.map((m) => (
-                      <span
-                        key={m}
-                        className="cyber-badge cyber-badge-cyan text-[0.6rem]"
-                      >
-                        {m}
-                      </span>
+                      <span key={m} className="cyber-badge cyber-badge-cyan text-[0.6rem]">{m}</span>
                     ))}
                     {exercise.equipment && (
-                      <span className="cyber-badge cyber-badge-yellow text-[0.6rem]">
-                        {exercise.equipment}
-                      </span>
+                      <span className="cyber-badge cyber-badge-yellow text-[0.6rem]">{exercise.equipment}</span>
                     )}
                   </div>
+                </Link>
+                <div className="flex items-center gap-0.5 flex-shrink-0">
+                  <FavoriteButton isFavorite={isFavorite(exercise.id)} onToggle={() => toggleFav(exercise.id)} />
+                  <ExerciseInfoButton exerciseId={exercise.id} />
                 </div>
-                <ExerciseInfoButton exerciseId={exercise.id} />
               </div>
-            </Link>
+            </div>
           ))}
           {exercises.length > 50 && (
             <p className="text-center text-xs text-cyber-text-muted py-2">
