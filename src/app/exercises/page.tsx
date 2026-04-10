@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { ExerciseInfoButton } from "@/components/exercises/exercise-info-drawer";
 import { FavoriteButton } from "@/components/exercises/favorite-button";
+import { FavoritesSection } from "@/components/exercises/favorites-section";
 import { useFavorites } from "@/lib/hooks/use-favorites";
 import {
   filterExercises,
@@ -21,9 +22,17 @@ export default function ExercisesPage() {
   const [expandedFilter, setExpandedFilter] = useState<string | null>(null);
   const { favoriteIds, toggle: toggleFav, isFavorite } = useFavorites();
 
+  const allFiltered = useMemo(
+    () => filterExercises({ query, muscles, equipment, categories }),
+    [query, muscles, equipment, categories]
+  );
+  const favExercises = useMemo(
+    () => allFiltered.filter((e) => favoriteIds.has(e.id)),
+    [allFiltered, favoriteIds]
+  );
   const exercises = useMemo(
-    () => filterExercises({ query, muscles, equipment, categories, favoriteIds }),
-    [query, muscles, equipment, categories, favoriteIds]
+    () => allFiltered.filter((e) => !favoriteIds.has(e.id)),
+    [allFiltered, favoriteIds]
   );
 
   const hasFilters = muscles.length > 0 || equipment.length > 0 || categories.length > 0;
@@ -48,7 +57,7 @@ export default function ExercisesPage() {
     <div>
       <Header
         title="Exercise Database"
-        subtitle={`${exercises.length} exercises`}
+        subtitle={`${allFiltered.length} exercises`}
       />
 
       <div className="px-4 pt-4 space-y-3 max-w-lg mx-auto">
@@ -161,48 +170,72 @@ export default function ExercisesPage() {
 
         {/* Results */}
         <div className="space-y-2 pb-4">
+          {/* Favorites collapsible */}
+          {favExercises.length > 0 && (
+            <FavoritesSection count={favExercises.length}>
+              {favExercises.map((exercise) => (
+                <ExerciseLibRow
+                  key={exercise.id}
+                  exercise={exercise}
+                  isFav
+                  onToggleFav={() => toggleFav(exercise.id)}
+                />
+              ))}
+            </FavoritesSection>
+          )}
+
           {exercises.slice(0, 50).map((exercise) => (
-            <div key={exercise.id} className="cyber-card py-2.5 px-3">
-              <div className="flex items-start justify-between gap-2">
-                <Link href={`/exercises/${exercise.id}`} className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    {isFavorite(exercise.id) && (
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="#E8C84A" stroke="none" className="flex-shrink-0">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                      </svg>
-                    )}
-                    <p className="text-sm font-semibold truncate">
-                      {exercise.name}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-1 mt-1">
-                    {exercise.primaryMuscles.map((m) => (
-                      <span key={m} className="cyber-badge cyber-badge-cyan text-[0.6rem]">{m}</span>
-                    ))}
-                    {exercise.equipment && (
-                      <span className="cyber-badge cyber-badge-yellow text-[0.6rem]">{exercise.equipment}</span>
-                    )}
-                  </div>
-                </Link>
-                <div className="flex items-center gap-0.5 flex-shrink-0">
-                  <FavoriteButton isFavorite={isFavorite(exercise.id)} onToggle={() => toggleFav(exercise.id)} />
-                  <ExerciseInfoButton exerciseId={exercise.id} />
-                </div>
-              </div>
-            </div>
+            <ExerciseLibRow
+              key={exercise.id}
+              exercise={exercise}
+              isFav={false}
+              onToggleFav={() => toggleFav(exercise.id)}
+            />
           ))}
           {exercises.length > 50 && (
             <p className="text-center text-xs text-cyber-text-muted py-2">
               Showing 50 of {exercises.length} results. Refine your search.
             </p>
           )}
-          {exercises.length === 0 && (
+          {allFiltered.length === 0 && (
             <div className="text-center py-8">
               <p className="text-cyber-text-muted text-sm">
                 No exercises found
               </p>
             </div>
           )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ExerciseLibRow({
+  exercise,
+  isFav,
+  onToggleFav,
+}: {
+  exercise: { id: string; name: string; primaryMuscles: string[]; equipment: string | null };
+  isFav: boolean;
+  onToggleFav: () => void;
+}) {
+  return (
+    <div className="cyber-card py-2.5 px-3">
+      <div className="flex items-start justify-between gap-2">
+        <Link href={`/exercises/${exercise.id}`} className="flex-1 min-w-0">
+          <p className="text-sm font-semibold truncate">{exercise.name}</p>
+          <div className="flex flex-wrap gap-1 mt-1">
+            {exercise.primaryMuscles.map((m) => (
+              <span key={m} className="cyber-badge cyber-badge-cyan text-[0.6rem]">{m}</span>
+            ))}
+            {exercise.equipment && (
+              <span className="cyber-badge cyber-badge-yellow text-[0.6rem]">{exercise.equipment}</span>
+            )}
+          </div>
+        </Link>
+        <div className="flex items-center gap-0.5 flex-shrink-0">
+          <FavoriteButton isFavorite={isFav} onToggle={onToggleFav} />
+          <ExerciseInfoButton exerciseId={exercise.id} />
         </div>
       </div>
     </div>

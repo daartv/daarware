@@ -10,6 +10,7 @@ import {
 } from "@/lib/exercise-data";
 import { ExerciseInfoButton } from "@/components/exercises/exercise-info-drawer";
 import { FavoriteButton } from "@/components/exercises/favorite-button";
+import { FavoritesSection } from "@/components/exercises/favorites-section";
 import { useFavorites } from "@/lib/hooks/use-favorites";
 
 interface ExercisePickerProps {
@@ -27,16 +28,24 @@ export function ExercisePicker({ onSelect, onClose }: ExercisePickerProps) {
 
   const totalFilters = muscles.length + equipment.length + categories.length;
 
-  const exercises = useMemo(
+  const allFiltered = useMemo(
     () =>
       filterExercises({
         query,
         muscles,
         equipment,
         categories,
-        favoriteIds,
       }),
-    [query, muscles, equipment, categories, favoriteIds]
+    [query, muscles, equipment, categories]
+  );
+
+  const favExercises = useMemo(
+    () => allFiltered.filter((e) => favoriteIds.has(e.id)),
+    [allFiltered, favoriteIds]
+  );
+  const exercises = useMemo(
+    () => allFiltered.filter((e) => !favoriteIds.has(e.id)),
+    [allFiltered, favoriteIds]
   );
 
   const toggleChip = useCallback(
@@ -129,39 +138,32 @@ export function ExercisePicker({ onSelect, onClose }: ExercisePickerProps) {
 
         {/* Results */}
         <div className="flex-1 overflow-y-auto">
+          {/* Favorites collapsible */}
+          {favExercises.length > 0 && (
+            <FavoritesSection count={favExercises.length}>
+              {favExercises.map((exercise) => (
+                <ExerciseRow
+                  key={exercise.id}
+                  exercise={exercise}
+                  isFav
+                  onSelect={onSelect}
+                  onToggleFav={() => toggleFav(exercise.id)}
+                />
+              ))}
+            </FavoritesSection>
+          )}
+
+          {/* All exercises */}
           {exercises.slice(0, 50).map((exercise) => (
-            <div
+            <ExerciseRow
               key={exercise.id}
-              className="flex items-center border-b border-cyber-border/50 hover:bg-cyber-surface-hover transition-colors"
-            >
-              <button
-                onClick={() => onSelect(exercise.id)}
-                className="flex-1 text-left px-4 py-2.5"
-              >
-                <div className="flex items-center gap-1.5">
-                  {isFavorite(exercise.id) && (
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="#E8C84A" stroke="none" className="flex-shrink-0">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  )}
-                  <p className="text-sm font-semibold">{exercise.name}</p>
-                </div>
-                <div className="flex gap-1 mt-0.5">
-                  {exercise.primaryMuscles.map((m) => (
-                    <span key={m} className="text-[0.55rem] text-cyber-cyan capitalize">{m}</span>
-                  ))}
-                  {exercise.equipment && (
-                    <span className="text-[0.55rem] text-cyber-yellow capitalize">&middot; {exercise.equipment}</span>
-                  )}
-                </div>
-              </button>
-              <div className="pr-2 flex items-center gap-0.5">
-                <FavoriteButton isFavorite={isFavorite(exercise.id)} onToggle={() => toggleFav(exercise.id)} />
-                <ExerciseInfoButton exerciseId={exercise.id} />
-              </div>
-            </div>
+              exercise={exercise}
+              isFav={false}
+              onSelect={onSelect}
+              onToggleFav={() => toggleFav(exercise.id)}
+            />
           ))}
-          {exercises.length === 0 && (
+          {allFiltered.length === 0 && (
             <p className="text-center text-cyber-text-muted text-sm py-8">No exercises found</p>
           )}
         </div>
@@ -211,6 +213,41 @@ export function ExercisePicker({ onSelect, onClose }: ExercisePickerProps) {
           </Drawer.Content>
         </Drawer.Portal>
       </Drawer.Root>
+    </div>
+  );
+}
+
+function ExerciseRow({
+  exercise,
+  isFav,
+  onSelect,
+  onToggleFav,
+}: {
+  exercise: { id: string; name: string; primaryMuscles: string[]; equipment: string | null };
+  isFav: boolean;
+  onSelect: (id: string) => void;
+  onToggleFav: () => void;
+}) {
+  return (
+    <div className="flex items-center border-b border-cyber-border/50 hover:bg-cyber-surface-hover transition-colors">
+      <button
+        onClick={() => onSelect(exercise.id)}
+        className="flex-1 text-left px-4 py-2.5"
+      >
+        <p className="text-sm font-semibold">{exercise.name}</p>
+        <div className="flex gap-1 mt-0.5">
+          {exercise.primaryMuscles.map((m) => (
+            <span key={m} className="text-[0.55rem] text-cyber-cyan capitalize">{m}</span>
+          ))}
+          {exercise.equipment && (
+            <span className="text-[0.55rem] text-cyber-yellow capitalize">&middot; {exercise.equipment}</span>
+          )}
+        </div>
+      </button>
+      <div className="pr-2 flex items-center gap-0.5">
+        <FavoriteButton isFavorite={isFav} onToggle={onToggleFav} />
+        <ExerciseInfoButton exerciseId={exercise.id} />
+      </div>
     </div>
   );
 }

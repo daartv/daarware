@@ -64,7 +64,6 @@ export function filterExercises(opts: {
   muscles?: string[];
   equipment?: string[];
   categories?: string[];
-  favoriteIds?: Set<string>;
 }): Exercise[] {
   let result = exercises;
 
@@ -90,16 +89,6 @@ export function filterExercises(opts: {
   if (opts.categories && opts.categories.length > 0) {
     const cats = opts.categories.map((c) => c.toLowerCase());
     result = result.filter((e) => cats.includes(e.category.toLowerCase()));
-  }
-
-  // Sort favorites first
-  if (opts.favoriteIds && opts.favoriteIds.size > 0) {
-    const favs = opts.favoriteIds;
-    result = [...result].sort((a, b) => {
-      const aFav = favs.has(a.id) ? 0 : 1;
-      const bFav = favs.has(b.id) ? 0 : 1;
-      return aFav - bFav;
-    });
   }
 
   return result;
