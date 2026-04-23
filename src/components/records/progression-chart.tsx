@@ -31,8 +31,12 @@ export function ProgressionChart({ exerciseId, compact }: ProgressionChartProps)
   if (compact) {
     return (
       <div className="flex items-center gap-2">
-        <Sparkline sessions={sessions} max1RM={max1RM} min1RM={min1RM} range={range} />
-        <TrendIndicator trend={trend} />
+        <div className="flex-1 min-w-0">
+          <Sparkline sessions={sessions} max1RM={max1RM} min1RM={min1RM} range={range} />
+        </div>
+        <div className="flex-shrink-0">
+          <TrendIndicator trend={trend} />
+        </div>
       </div>
     );
   }
