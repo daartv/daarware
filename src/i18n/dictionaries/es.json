@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "title": "Tu Nombre",
+    "tagline": "Ingeniero. Constructor. Persona curiosa.",
+    "description": "Sitio personal de Tu Nombre — trabajo, proyectos y las cosas que me fascinan."
+  },
+  "nav": {
+    "professional": "Trabajo",
+    "personal": "Ocio",
+    "languageLabel": "Idioma",
+    "modeLabel": "Modo"
+  },
+  "professional": {
+    "hero": {
+      "eyebrow": "Hola, soy",
+      "name": "Tu Nombre",
+      "role": "Ingeniero de Software",
+      "summary": "Construyo software cuidado y sin ruido. Actualmente enfocado en herramientas para desarrolladores e ingeniería de producto. Vivo en Ámsterdam.",
+      "ctaContact": "Contáctame",
+      "ctaResume": "Descargar CV"
+    },
+    "experience": {
+      "title": "Experiencia",
+      "items": [
+        {
+          "company": "Empresa Uno",
+          "role": "Ingeniero de Software Senior",
+          "period": "2023 — Presente",
+          "location": "Ámsterdam",
+          "summary": "Construyendo plataformas de ingeniería de producto usadas por cientos de ingenieros."
+        },
+        {
+          "company": "Empresa Dos",
+          "role": "Ingeniero de Software",
+          "period": "2020 — 2023",
+          "location": "Ámsterdam",
+          "summary": "Trabajé en infraestructura de datos a gran escala y herramientas para desarrolladores."
+        },
+        {
+          "company": "Empresa Tres",
+          "role": "Ingeniero Junior",
+          "period": "2018 — 2020",
+          "location": "Madrid",
+          "summary": "Desarrollo web full-stack en equipos de producto y plataforma."
+        }
+      ]
+    },
+    "projects": {
+      "title": "Proyectos seleccionados",
+      "items": [
+        {
+          "name": "Daarware",
+          "summary": "Rastreador de entrenamiento de fuerza con estética cyberpunk. Next.js, React 19, Tailwind 4, IndexedDB.",
+          "link": "https://github.com/daartv/daarware"
+        },
+        {
+          "name": "Proyecto Dos",
+          "summary": "Descripción breve y honesta del proyecto y por qué importó.",
+          "link": "#"
+        },
+        {
+          "name": "Proyecto Tres",
+          "summary": "Descripción breve y honesta del proyecto y por qué importó.",
+          "link": "#"
+        }
+      ]
+    },
+    "skills": {
+      "title": "Herramientas que uso",
+      "items": ["TypeScript", "React", "Next.js", "Node.js", "PostgreSQL", "Python", "Tailwind CSS"]
+    },
+    "contact": {
+      "title": "Hablemos",
+      "summary": "Siempre abierto a conversaciones interesantes y colaboraciones.",
+      "emailLabel": "Email",
+      "email": "tu@ejemplo.com",
+      "linkedinLabel": "LinkedIn",
+      "linkedin": "https://linkedin.com/in/yourname",
+      "githubLabel": "GitHub",
+      "github": "https://github.com/yourname"
+    },
+    "footer": {
+      "switchPrompt": "¿Quieres ver el otro lado?",
+      "switchCta": "Modo ocio"
+    }
+  },
+  "personal": {
+    "hero": {
+      "title": "BIENVENIDO, JUGADOR 1",
+      "subtitle": "* PULSA START *",
+      "blurb": "¡Hola! Fuera del horario laboral soy alguien al que le gustan cosas. Aquí algunas de ellas."
+    },
+    "hobbies": {
+      "title": "AFICIONES",
+      "items": [
+        { "icon": "🎮", "name": "Videojuegos", "blurb": "Juegos relajantes, RPGs retro y algún roguelike." },
+        { "icon": "🏋️", "name": "Pesas", "blurb": "Cada vez un poco más fuerte. Sí, hice una app para eso." },
+        { "icon": "📚", "name": "Leer", "blurb": "Ciencia ficción, historia y algún libro de cocina." },
+        { "icon": "🍳", "name": "Cocinar", "blurb": "Persiguiendo la pasta perfecta entre semana." },
+        { "icon": "🎲", "name": "Juegos de mesa", "blurb": "Estrategia pesada, cuanto más largo el reglamento, mejor." },
+        { "icon": "🎧", "name": "Música", "blurb": "Más oyente que músico, pero sigo trasteando." }
+      ]
+    },
+    "interests": {
+      "title": "AHORA MISMO",
+      "items": [
+        "Pixel art",
+        "Synthwave y city pop",
+        "Teclados mecánicos",
+        "Frikismo del transporte público",
+        "Internet lenta, software rápido",
+        "Países Bajos en primavera"
+      ]
+    },
+    "now": {
+      "title": "AHORA",
+      "items": [
+        { "label": "LEYENDO", "value": "Un buen libro" },
+        { "label": "JUGANDO", "value": "Algún juego pixel" },
+        { "label": "COCINANDO", "value": "Algo con ajo" },
+        { "label": "APRENDIENDO", "value": "Neerlandés, despacio" }
+      ]
+    },
+    "footer": {
+      "switchPrompt": "¿Buscas la parte profesional?",
+      "switchCta": "Volver al modo trabajo",
+      "credits": "HECHO CON ♥ + PÍXELES"
+    }
+  }
+}

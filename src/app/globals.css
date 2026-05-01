@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+/* ============================================
+   Personal Website — dual-mode design system
+   ============================================ */
+
+@theme inline {
+  /* --- Professional (pastel, refined) --- */
+  --color-pro-bg: #faf7f2;
+  --color-pro-bg-alt: #f3ede4;
+  --color-pro-surface: #ffffff;
+  --color-pro-surface-alt: #f8f3ec;
+  --color-pro-border: #e6dccd;
+  --color-pro-border-strong: #d6c7b0;
+  --color-pro-text: #2c2a28;
+  --color-pro-text-muted: #6b6660;
+  --color-pro-text-soft: #8e8881;
+  --color-pro-accent: #d29ea2;        /* dusty rose */
+  --color-pro-accent-soft: #f4d4d6;
+  --color-pro-accent-2: #94a98b;      /* sage */
+  --color-pro-accent-2-soft: #d8e2cf;
+  --color-pro-accent-3: #8aa3bd;      /* dusty blue */
+  --color-pro-accent-3-soft: #d3dde7;
+  --color-pro-accent-4: #d9c178;      /* warm sand */
+  --color-pro-accent-4-soft: #efe4c1;
+
+  /* --- Personal (pixel art, retro) --- */
+  --color-pix-bg: #1a1c2c;
+  --color-pix-bg-alt: #29366f;
+  --color-pix-surface: #3b5dc9;
+  --color-pix-surface-alt: #41a6f6;
+  --color-pix-border: #f4f4f4;
+  --color-pix-text: #f4f4f4;
+  --color-pix-text-dim: #94b0c2;
+  --color-pix-yellow: #ffcd75;
+  --color-pix-pink: #ef7d57;
+  --color-pix-magenta: #b13e53;
+  --color-pix-green: #38b764;
+  --color-pix-cyan: #73eff7;
+  --color-pix-purple: #a85ee0;
+
+  /* --- Fonts --- */
+  --font-pro-sans: var(--font-pro-sans-var);
+  --font-pro-serif: var(--font-pro-serif-var);
+  --font-pix-display: var(--font-pix-display-var);
+  --font-pix-body: var(--font-pix-body-var);
+
+  /* --- Animations --- */
+  --animate-blink: blink 1.1s steps(2, start) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.4s ease-out;
+}
+
+@keyframes blink {
+  to { visibility: hidden; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Base --- */
+html, body { height: 100%; }
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Mode: Professional --- */
+[data-mode="professional"] body,
+body[data-mode="professional"] {
+  background-color: var(--color-pro-bg);
+  color: var(--color-pro-text);
+  font-family: var(--font-pro-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+}
+
+[data-mode="professional"] {
+  --section-max: 64rem;
+}
+
+[data-mode="professional"] .pro-serif {
+  font-family: var(--font-pro-serif), ui-serif, Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+[data-mode="professional"] .pro-card {
+  background: var(--color-pro-surface);
+  border: 1px solid var(--color-pro-border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-mode="professional"] .pro-card:hover {
+  border-color: var(--color-pro-border-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px -15px rgba(60, 50, 40, 0.18);
+}
+
+[data-mode="professional"] .pro-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 999px;
+  background: var(--color-pro-surface-alt);
+  border: 1px solid var(--color-pro-border);
+  color: var(--color-pro-text-muted);
+}
+
+[data-mode="professional"] .pro-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-pro-text-soft);
+}
+
+[data-mode="professional"] .pro-divider {
+  height: 1px;
+  background: var(--color-pro-border);
+  border: 0;
+}
+
+[data-mode="professional"] .pro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  border: 1px solid var(--color-pro-border-strong);
+  background: var(--color-pro-surface);
+  color: var(--color-pro-text);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+[data-mode="professional"] .pro-btn:hover {
+  background: var(--color-pro-surface-alt);
+  border-color: var(--color-pro-text-soft);
+}
+
+[data-mode="professional"] .pro-btn-primary {
+  background: var(--color-pro-text);
+  color: var(--color-pro-bg);
+  border-color: var(--color-pro-text);
+}
+
+[data-mode="professional"] .pro-btn-primary:hover {
+  background: #1a1917;
+  border-color: #1a1917;
+}
+
+[data-mode="professional"] .pro-link {
+  color: var(--color-pro-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--color-pro-accent);
+  text-decoration-thickness: 2px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+[data-mode="professional"] .pro-link:hover {
+  text-decoration-color: var(--color-pro-text);
+}
+
+[data-mode="professional"] .pro-blob {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+}
+
+/* --- Mode: Personal (pixel art) --- */
+[data-mode="personal"] body,
+body[data-mode="personal"] {
+  background-color: var(--color-pix-bg);
+  color: var(--color-pix-text);
+  font-family: var(--font-pix-body), ui-monospace, "SFMono-Regular", monospace;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 16px 16px;
+  image-rendering: pixelated;
+}
+
+[data-mode="personal"] .pix-display {
+  font-family: var(--font-pix-display), ui-monospace, monospace;
+  letter-spacing: 0.02em;
+  text-shadow: 3px 3px 0 var(--color-pix-magenta);
+}
+
+[data-mode="personal"] .pix-card {
+  background: var(--color-pix-bg-alt);
+  border: 4px solid var(--color-pix-border);
+  padding: 1.25rem;
+  position: relative;
+  box-shadow:
+    0 0 0 4px var(--color-pix-bg),
+    8px 8px 0 0 rgba(0, 0, 0, 0.45);
+  image-rendering: pixelated;
+}
+
+[data-mode="personal"] .pix-card-pink {
+  background: var(--color-pix-magenta);
+}
+
+[data-mode="personal"] .pix-card-green {
+  background: var(--color-pix-green);
+  color: var(--color-pix-bg);
+}
+
+[data-mode="personal"] .pix-card-yellow {
+  background: var(--color-pix-yellow);
+  color: var(--color-pix-bg);
+}
+
+[data-mode="personal"] .pix-card-cyan {
+  background: var(--color-pix-cyan);
+  color: var(--color-pix-bg);
+}
+
+[data-mode="personal"] .pix-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  font-family: var(--font-pix-display), monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--color-pix-yellow);
+  color: var(--color-pix-bg);
+  border: 4px solid var(--color-pix-border);
+  box-shadow: 4px 4px 0 0 var(--color-pix-magenta);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  cursor: pointer;
+}
+
+[data-mode="personal"] .pix-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--color-pix-magenta);
+}
+
+[data-mode="personal"] .pix-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 0 var(--color-pix-magenta);
+}
+
+[data-mode="personal"] .pix-tag {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  font-family: var(--font-pix-display), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  background: var(--color-pix-bg-alt);
+  border: 2px solid var(--color-pix-border);
+  color: var(--color-pix-yellow);
+}
+
+[data-mode="personal"] .pix-blink::after {
+  content: "_";
+  animation: var(--animate-blink);
+  margin-left: 0.1em;
+}
+
+[data-mode="personal"] .pix-scanlines::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 3px,
+    rgba(0, 0, 0, 0.18) 3px,
+    rgba(0, 0, 0, 0.18) 4px
+  );
+  z-index: 50;
+  mix-blend-mode: multiply;
+}
+
+[data-mode="personal"] .pix-link {
+  color: var(--color-pix-cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+[data-mode="personal"] .pix-link:hover {
+  color: var(--color-pix-yellow);
+}

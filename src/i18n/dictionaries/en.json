@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "title": "Your Name",
+    "tagline": "Engineer. Builder. Curious human.",
+    "description": "Personal site of Your Name — work, projects, and the things that fascinate me."
+  },
+  "nav": {
+    "professional": "Work",
+    "personal": "Play",
+    "languageLabel": "Language",
+    "modeLabel": "Mode"
+  },
+  "professional": {
+    "hero": {
+      "eyebrow": "Hi, I'm",
+      "name": "Your Name",
+      "role": "Software Engineer",
+      "summary": "I build calm, well-crafted software. Currently focused on developer tools and product engineering. Based in Amsterdam.",
+      "ctaContact": "Get in touch",
+      "ctaResume": "Download CV"
+    },
+    "experience": {
+      "title": "Experience",
+      "items": [
+        {
+          "company": "Company One",
+          "role": "Senior Software Engineer",
+          "period": "2023 — Present",
+          "location": "Amsterdam",
+          "summary": "Building product engineering platforms used by hundreds of engineers."
+        },
+        {
+          "company": "Company Two",
+          "role": "Software Engineer",
+          "period": "2020 — 2023",
+          "location": "Amsterdam",
+          "summary": "Worked on large-scale data infrastructure and developer tooling."
+        },
+        {
+          "company": "Company Three",
+          "role": "Junior Engineer",
+          "period": "2018 — 2020",
+          "location": "Madrid",
+          "summary": "Full-stack web development across product and platform teams."
+        }
+      ]
+    },
+    "projects": {
+      "title": "Selected projects",
+      "items": [
+        {
+          "name": "Daarware",
+          "summary": "Cyberpunk-themed strength training tracker. Next.js, React 19, Tailwind 4, IndexedDB.",
+          "link": "https://github.com/daartv/daarware"
+        },
+        {
+          "name": "Project Two",
+          "summary": "Short, honest description of the project and why it mattered.",
+          "link": "#"
+        },
+        {
+          "name": "Project Three",
+          "summary": "Short, honest description of the project and why it mattered.",
+          "link": "#"
+        }
+      ]
+    },
+    "skills": {
+      "title": "Tools I reach for",
+      "items": ["TypeScript", "React", "Next.js", "Node.js", "PostgreSQL", "Python", "Tailwind CSS"]
+    },
+    "contact": {
+      "title": "Let's talk",
+      "summary": "Open to interesting conversations and collaborations.",
+      "emailLabel": "Email",
+      "email": "you@example.com",
+      "linkedinLabel": "LinkedIn",
+      "linkedin": "https://linkedin.com/in/yourname",
+      "githubLabel": "GitHub",
+      "github": "https://github.com/yourname"
+    },
+    "footer": {
+      "switchPrompt": "Want to see the other side?",
+      "switchCta": "Visit play mode"
+    }
+  },
+  "personal": {
+    "hero": {
+      "title": "WELCOME, PLAYER 1",
+      "subtitle": "* PRESS START *",
+      "blurb": "Hello! Off the clock I'm just a person who likes things. Here are some of those things."
+    },
+    "hobbies": {
+      "title": "HOBBIES",
+      "items": [
+        { "icon": "🎮", "name": "Video games", "blurb": "Cozy games, retro RPGs, and the occasional roguelike." },
+        { "icon": "🏋️", "name": "Lifting", "blurb": "Slowly getting stronger. Yes, I built an app for it." },
+        { "icon": "📚", "name": "Reading", "blurb": "Sci-fi, history, and the odd cookbook." },
+        { "icon": "🍳", "name": "Cooking", "blurb": "Always chasing the perfect weeknight pasta." },
+        { "icon": "🎲", "name": "Tabletop", "blurb": "Heavier strategy games, the longer the rulebook the better." },
+        { "icon": "🎧", "name": "Music", "blurb": "Listening more than playing, but still tinkering." }
+      ]
+    },
+    "interests": {
+      "title": "CURRENTLY INTO",
+      "items": [
+        "Pixel art",
+        "Synthwave & city pop",
+        "Mechanical keyboards",
+        "Public transit nerdery",
+        "Slow internet, fast software",
+        "The Netherlands in spring"
+      ]
+    },
+    "now": {
+      "title": "RIGHT NOW",
+      "items": [
+        { "label": "READING", "value": "Some great book" },
+        { "label": "PLAYING", "value": "Some pixel game" },
+        { "label": "COOKING", "value": "Something with garlic" },
+        { "label": "LEARNING", "value": "Dutch, slowly" }
+      ]
+    },
+    "footer": {
+      "switchPrompt": "Looking for the work stuff?",
+      "switchCta": "Back to work mode",
+      "credits": "MADE WITH ♥ + PIXELS"
+    }
+  }
+}

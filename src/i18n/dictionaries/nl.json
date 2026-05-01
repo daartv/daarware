@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "title": "Jouw Naam",
+    "tagline": "Engineer. Bouwer. Nieuwsgierig mens.",
+    "description": "Persoonlijke site van Jouw Naam — werk, projecten en de dingen die mij boeien."
+  },
+  "nav": {
+    "professional": "Werk",
+    "personal": "Vrije tijd",
+    "languageLabel": "Taal",
+    "modeLabel": "Modus"
+  },
+  "professional": {
+    "hero": {
+      "eyebrow": "Hoi, ik ben",
+      "name": "Jouw Naam",
+      "role": "Software Engineer",
+      "summary": "Ik bouw rustige, goed verzorgde software. Op dit moment richt ik me op developer tools en product engineering. Woont in Amsterdam.",
+      "ctaContact": "Neem contact op",
+      "ctaResume": "CV downloaden"
+    },
+    "experience": {
+      "title": "Werkervaring",
+      "items": [
+        {
+          "company": "Bedrijf Een",
+          "role": "Senior Software Engineer",
+          "period": "2023 — heden",
+          "location": "Amsterdam",
+          "summary": "Bouw aan engineering platforms die door honderden engineers gebruikt worden."
+        },
+        {
+          "company": "Bedrijf Twee",
+          "role": "Software Engineer",
+          "period": "2020 — 2023",
+          "location": "Amsterdam",
+          "summary": "Werkte aan grootschalige data-infrastructuur en developer tooling."
+        },
+        {
+          "company": "Bedrijf Drie",
+          "role": "Junior Engineer",
+          "period": "2018 — 2020",
+          "location": "Madrid",
+          "summary": "Full-stack webontwikkeling in product- en platformteams."
+        }
+      ]
+    },
+    "projects": {
+      "title": "Geselecteerde projecten",
+      "items": [
+        {
+          "name": "Daarware",
+          "summary": "Cyberpunk-thema krachttraining-tracker. Next.js, React 19, Tailwind 4, IndexedDB.",
+          "link": "https://github.com/daartv/daarware"
+        },
+        {
+          "name": "Project Twee",
+          "summary": "Korte, eerlijke beschrijving van het project en waarom het belangrijk was.",
+          "link": "#"
+        },
+        {
+          "name": "Project Drie",
+          "summary": "Korte, eerlijke beschrijving van het project en waarom het belangrijk was.",
+          "link": "#"
+        }
+      ]
+    },
+    "skills": {
+      "title": "Tools die ik graag gebruik",
+      "items": ["TypeScript", "React", "Next.js", "Node.js", "PostgreSQL", "Python", "Tailwind CSS"]
+    },
+    "contact": {
+      "title": "Laten we praten",
+      "summary": "Open voor interessante gesprekken en samenwerkingen.",
+      "emailLabel": "E-mail",
+      "email": "jij@voorbeeld.nl",
+      "linkedinLabel": "LinkedIn",
+      "linkedin": "https://linkedin.com/in/yourname",
+      "githubLabel": "GitHub",
+      "github": "https://github.com/yourname"
+    },
+    "footer": {
+      "switchPrompt": "Benieuwd naar de andere kant?",
+      "switchCta": "Naar vrije-tijd modus"
+    }
+  },
+  "personal": {
+    "hero": {
+      "title": "WELKOM, SPELER 1",
+      "subtitle": "* DRUK OP START *",
+      "blurb": "Hoi! Buiten werktijd ben ik gewoon iemand die dingen leuk vindt. Hier zijn er een paar."
+    },
+    "hobbies": {
+      "title": "HOBBY'S",
+      "items": [
+        { "icon": "🎮", "name": "Videogames", "blurb": "Gezellige games, retro RPG's en af en toe een roguelike." },
+        { "icon": "🏋️", "name": "Krachttraining", "blurb": "Langzaam sterker worden. Ja, ik heb er een app voor gebouwd." },
+        { "icon": "📚", "name": "Lezen", "blurb": "Sci-fi, geschiedenis en een enkel kookboek." },
+        { "icon": "🍳", "name": "Koken", "blurb": "Op zoek naar de perfecte pasta op een doordeweekse avond." },
+        { "icon": "🎲", "name": "Bordspellen", "blurb": "Zwaardere strategiespellen, hoe langer het regelboek, hoe beter." },
+        { "icon": "🎧", "name": "Muziek", "blurb": "Meer luisteren dan spelen, maar nog steeds aan het knutselen." }
+      ]
+    },
+    "interests": {
+      "title": "MOMENTEEL FAN VAN",
+      "items": [
+        "Pixel art",
+        "Synthwave & city pop",
+        "Mechanische toetsenborden",
+        "OV-nerderij",
+        "Trage internet, snelle software",
+        "Nederland in de lente"
+      ]
+    },
+    "now": {
+      "title": "OP DIT MOMENT",
+      "items": [
+        { "label": "LEZEN", "value": "Een goed boek" },
+        { "label": "SPELEN", "value": "Een pixel-game" },
+        { "label": "KOKEN", "value": "Iets met knoflook" },
+        { "label": "LEREN", "value": "Nederlands, langzaam" }
+      ]
+    },
+    "footer": {
+      "switchPrompt": "Op zoek naar de werk-kant?",
+      "switchCta": "Terug naar werk-modus",
+      "credits": "GEMAAKT MET ♥ + PIXELS"
+    }
+  }
+}
