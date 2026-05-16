@@ -836,16 +836,31 @@ export default function LogWorkoutPage() {
                   </span>
                 </div>
               )}
-              {/* Edit link */}
-              <button
-                onClick={() => {
-                  setCurrentExIdx(i);
-                  setStep("logging");
-                }}
-                className="text-xs text-cyber-text-muted hover:text-cyber-cyan transition-colors mt-2"
-              >
-                Edit sets &rarr;
-              </button>
+              {/* Edit action */}
+              <div className="mt-3 pt-2 border-t border-cyber-border flex justify-end">
+                <button
+                  onClick={() => {
+                    setCurrentExIdx(i);
+                    setStep("logging");
+                  }}
+                  className="cyber-btn text-[0.7rem] py-1.5 px-3"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                  </svg>
+                  Edit Sets
+                </button>
+              </div>
             </div>
           );
         })}
