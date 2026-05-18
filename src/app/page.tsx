@@ -6,7 +6,6 @@ import { usePersonalRecords, useStaleRecords } from "@/lib/hooks/use-personal-re
 import { useTemplates } from "@/lib/hooks/use-templates";
 import { getExerciseById } from "@/lib/exercise-data";
 import { formatDate, timeAgo, getPRStaleness, getNudgeInfo } from "@/lib/utils";
-import { ContributionChart } from "@/components/dashboard/contribution-chart";
 
 export default function Dashboard() {
   const recentWorkouts = useRecentWorkouts(5);
@@ -75,9 +74,6 @@ export default function Dashboard() {
           </span>
         </Link>
       </div>
-
-      {/* Activity heatmap */}
-      <ContributionChart />
 
       {/* Stale PR Alerts */}
       {staleRecords.length > 0 && (

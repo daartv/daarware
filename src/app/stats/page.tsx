@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { Header } from "@/components/layout/header";
 import { useWorkoutLogs } from "@/lib/hooks/use-workout-logs";
 import { getExerciseById } from "@/lib/exercise-data";
+import { ContributionChart } from "@/components/stats/contribution-chart";
 import {
   PieChart,
   Pie,
@@ -134,6 +135,9 @@ export default function StatsPage() {
       <Header title="Stats" />
 
       <div className="px-4 pt-4 space-y-5 max-w-lg mx-auto pb-4">
+        {/* Activity heatmap (fixed 12-week window, independent of range selector) */}
+        <ContributionChart />
+
         {/* Time Range Selector */}
         <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
           {(Object.keys(RANGE_LABELS) as TimeRange[]).map((r) => (
