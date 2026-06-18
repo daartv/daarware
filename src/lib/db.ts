@@ -20,7 +20,8 @@ export interface WorkoutLog {
   templateId?: number;
   exercises: WorkoutExercise[];
   notes?: string;
-  createdAt: string;
+  startedAt?: string; // ISO timestamp when the user entered the logging step
+  createdAt: string;  // ISO timestamp when the workout was saved (workout end)
 }
 
 export interface WorkoutTemplate {

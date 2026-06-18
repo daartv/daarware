@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import { useLiveQuery } from "dexie-react-hooks";
 import { Header } from "@/components/layout/header";
 import { ExercisePicker } from "@/components/exercises/exercise-picker";
 import { getExerciseById, getExerciseImageUrl } from "@/lib/exercise-data";
@@ -9,10 +10,14 @@ import { useTemplates } from "@/lib/hooks/use-templates";
 import { usePersonalRecords } from "@/lib/hooks/use-personal-records";
 import { saveWorkoutLog } from "@/lib/hooks/use-workout-logs";
 import { todayISO, calculate1RM, formatDate, timeAgo } from "@/lib/utils";
-import type { WorkoutExercise, WorkoutSet } from "@/lib/db";
+import { db, type WorkoutExercise, type WorkoutSet } from "@/lib/db";
 import Image from "next/image";
 import { ExerciseInfoButton } from "@/components/exercises/exercise-info-drawer";
 import { EstMaxLabel, EstMaxInline } from "@/components/ui/est-max-label";
+import {
+  prefillSetsForExercise,
+  type PrefillResult,
+} from "@/lib/prefill";
 
 type Step = "setup" | "logging" | "summary";
 
@@ -29,6 +34,11 @@ export default function LogWorkoutPage() {
 
   const templates = useTemplates();
   const allRecords = usePersonalRecords();
+  // Raw useLiveQuery (not the wrapper) so we can distinguish "still loading"
+  // (undefined) from "no logs yet" ([]). Prefill needs to wait for the first.
+  const allLogs = useLiveQuery(() =>
+    db.workoutLogs.orderBy("date").reverse().toArray()
+  );
 
   // --- State ---
   const [step, setStep] = useState<Step>("setup");
@@ -44,6 +54,10 @@ export default function LogWorkoutPage() {
   >({});
   const [loadedTemplateId, setLoadedTemplateId] = useState<number | undefined>(undefined);
   const [extraExerciseCount, setExtraExerciseCount] = useState(0);
+  const [prefillReasons, setPrefillReasons] = useState<
+    Record<string, PrefillResult>
+  >({});
+  const [startedAt, setStartedAt] = useState<string | null>(null);
 
   // Derive display info
   const loadedTemplate = templates.find((t) => t.id === loadedTemplateId);
@@ -62,36 +76,50 @@ export default function LogWorkoutPage() {
       if (!t) return;
       setLoadedTemplateId(templateId);
       setExtraExerciseCount(0);
-      setExercises(
-        t.exerciseIds.map((id) => ({
-          exerciseId: id,
-          sets: Array.from({ length: t.defaultSets || 3 }, () => ({
-            reps: 0,
-            weight: 0,
-          })),
-        }))
-      );
+
+      const logsForPrefill = allLogs ?? [];
+      const reasons: Record<string, PrefillResult> = {};
+      const nextExercises = t.exerciseIds.map((id) => {
+        const result = prefillSetsForExercise(
+          logsForPrefill,
+          id,
+          t.defaultSets || 3
+        );
+        if (result.reason !== "new") reasons[id] = result;
+        return { exerciseId: id, sets: result.sets };
+      });
+      setExercises(nextExercises);
+      setPrefillReasons(reasons);
     },
-    [templates]
+    [templates, allLogs]
   );
 
-  // Auto-load preselected template
+  // Auto-load preselected template — wait for logs so prefill has full history.
   const [autoLoaded, setAutoLoaded] = useState(false);
-  if (preselectedTemplateId && templates.length > 0 && !autoLoaded) {
+  if (
+    preselectedTemplateId &&
+    templates.length > 0 &&
+    allLogs !== undefined &&
+    !autoLoaded
+  ) {
     loadTemplate(preselectedTemplateId);
     setAutoLoaded(true);
   }
 
   const addExercise = useCallback((exerciseId: string) => {
+    const result = prefillSetsForExercise(allLogs ?? [], exerciseId, 1);
     setExercises((prev) => [
       ...prev,
-      { exerciseId, sets: [{ reps: 0, weight: 0 }] },
+      { exerciseId, sets: result.sets },
     ]);
+    if (result.reason !== "new") {
+      setPrefillReasons((prev) => ({ ...prev, [exerciseId]: result }));
+    }
     if (loadedTemplateId) {
       setExtraExerciseCount((p) => p + 1);
     }
     setShowPicker(false);
-  }, [loadedTemplateId]);
+  }, [allLogs, loadedTemplateId]);
 
   const removeExercise = useCallback(
     (index: number) => {
@@ -159,12 +187,20 @@ export default function LogWorkoutPage() {
     ) => {
       setExercises((prev) => {
         const next = [...prev];
+        const target = next[exerciseIndex];
         next[exerciseIndex] = {
-          ...next[exerciseIndex],
-          sets: next[exerciseIndex].sets.map((s, i) =>
+          ...target,
+          sets: target.sets.map((s, i) =>
             i === setIndex ? { ...s, [field]: value } : s
           ),
         };
+        // Clear any prefill explanation once the user touches values themselves.
+        setPrefillReasons((reasons) => {
+          if (!reasons[target.exerciseId]) return reasons;
+          const next = { ...reasons };
+          delete next[target.exerciseId];
+          return next;
+        });
         return next;
       });
     },
@@ -191,6 +227,8 @@ export default function LogWorkoutPage() {
   const startLogging = () => {
     if (exercises.length === 0) return;
     setCurrentExIdx(0);
+    // Capture the workout start once — re-entering logging from summary keeps the original time.
+    setStartedAt((prev) => prev ?? new Date().toISOString());
     setStep("logging");
   };
 
@@ -221,6 +259,7 @@ export default function LogWorkoutPage() {
         templateId: loadedTemplateId,
         exercises: cleanExercises,
         notes: notes.trim() || undefined,
+        startedAt: startedAt ?? undefined,
       });
       router.push("/");
     } catch (err) {
@@ -269,7 +308,7 @@ export default function LogWorkoutPage() {
                     onClick={() => loadTemplate(t.id)}
                     className={`cyber-card w-full text-left py-2.5 px-3 transition-all ${
                       loadedTemplateId === t.id
-                        ? "border-cyber-border-active shadow-[0_0_8px_rgba(47,217,217,0.3)]"
+                        ? "border-cyber-border-active bg-cyber-cyan-dim border-l-2 border-l-cyber-cyan shadow-[0_0_8px_rgba(47,217,217,0.3)]"
                         : ""
                     }`}
                   >
@@ -477,6 +516,7 @@ export default function LogWorkoutPage() {
                       {info.equipment}
                     </span>
                   )}
+                  <PrefillBadge result={prefillReasons[exercise.exerciseId]} />
                 </div>
               </div>
             </div>
@@ -889,6 +929,29 @@ export default function LogWorkoutPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+function PrefillBadge({ result }: { result: PrefillResult | undefined }) {
+  if (!result || result.reason === "new") return null;
+  if (result.reason === "match") {
+    return (
+      <span className="cyber-badge cyber-badge-cyan text-[0.55rem]">
+        From last session
+      </span>
+    );
+  }
+  if (result.reason === "plateau-bump") {
+    return (
+      <span className="cyber-badge cyber-badge-yellow text-[0.55rem]">
+        Plateau → +{result.bumpIncrement}kg
+      </span>
+    );
+  }
+  return (
+    <span className="cyber-badge cyber-badge-green text-[0.55rem]">
+      Restored from peak
+    </span>
   );
 }
 

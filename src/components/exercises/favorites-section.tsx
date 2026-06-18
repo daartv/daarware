@@ -19,10 +19,10 @@ export function FavoritesSection({
   if (count === 0) return null;
 
   return (
-    <div className="border border-cyber-yellow/20 bg-cyber-yellow-dim/30 mb-2">
+    <div className="border border-cyber-yellow/40 bg-cyber-yellow-dim mb-2">
       <button
         onClick={() => setExpanded((p) => !p)}
-        className="w-full flex items-center justify-between px-3 py-2 text-left transition-colors hover:bg-cyber-yellow-dim/50"
+        className="w-full flex items-center justify-between px-3 py-2 text-left transition-colors hover:bg-cyber-yellow-dim/70"
       >
         <div className="flex items-center gap-2">
           <svg
@@ -48,7 +48,7 @@ export function FavoritesSection({
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          className={`text-cyber-yellow/50 transition-transform ${
+          className={`text-cyber-yellow transition-transform ${
             expanded ? "rotate-180" : ""
           }`}
         >

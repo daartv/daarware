@@ -131,11 +131,19 @@ export default function Dashboard() {
       <section>
         <div className="flex items-center justify-between mb-2">
           <h2 className="cyber-heading">Recent Workouts</h2>
-          {recentWorkouts.length > 0 && (
-            <span className="cyber-badge cyber-badge-cyan">
-              {recentWorkouts.length}
-            </span>
-          )}
+          <div className="flex items-center gap-2">
+            {recentWorkouts.length > 0 && (
+              <span className="cyber-badge cyber-badge-cyan">
+                {recentWorkouts.length}
+              </span>
+            )}
+            <Link
+              href="/history"
+              className="text-xs text-cyber-text-muted hover:text-cyber-cyan transition-colors"
+            >
+              View All
+            </Link>
+          </div>
         </div>
         {recentWorkouts.length === 0 ? (
           <div className="cyber-card text-center py-8">

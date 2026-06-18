@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/header";
 import { useWorkoutLog, deleteWorkoutLog } from "@/lib/hooks/use-workout-logs";
 import { getExerciseById } from "@/lib/exercise-data";
 import { formatDate } from "@/lib/utils";
+import { formatWorkoutDuration } from "@/lib/format-export";
 import { ExerciseInfoButton } from "@/components/exercises/exercise-info-drawer";
 
 export default function WorkoutDetailPage({
@@ -51,7 +52,11 @@ export default function WorkoutDetailPage({
     <div>
       <Header
         title={workout.name}
-        subtitle={formatDate(workout.date)}
+        subtitle={
+          formatWorkoutDuration(workout)
+            ? `${formatDate(workout.date)} · ${formatWorkoutDuration(workout)}`
+            : formatDate(workout.date)
+        }
         back
         action={
           <button
