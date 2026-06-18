@@ -120,47 +120,47 @@ function FrontView({ getFill, getStroke, getGlow }: ViewProps) {
       <Defs />
 
       {/* Head */}
-      <ellipse cx="90" cy="18" rx="14" ry="17" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.1)" strokeWidth="0.4" />
+      <ellipse cx="90" cy="20" rx="13" ry="15" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.1)" strokeWidth="0.4" />
 
       {/* Neck */}
-      <M d="M80 34 Q82 32 90 31 Q98 32 100 34 L99 46 Q96 48 90 49 Q84 48 81 46 Z" muscle="neck" {...mp} />
+      <M d="M81 33 Q84 30 90 30 Q96 30 99 33 L98 45 Q94 48 90 48 Q86 48 82 45 Z" muscle="neck" {...mp} />
 
-      {/* Shoulders / Deltoids — wide, rounded */}
+      {/* Shoulders / Deltoids — wide, capped */}
       {/* L Delt */}
-      <M d="M68 48 Q58 44 48 46 Q36 50 32 60 Q30 66 32 72 L40 74 Q48 68 56 60 L64 52 Z" muscle="shoulders" {...mp} />
+      <M d="M68 46 Q54 42 42 47 Q28 54 26 70 Q26 78 30 84 L41 82 Q45 70 53 62 Q61 54 70 52 Z" muscle="shoulders" {...mp} />
       {/* R Delt */}
-      <M d="M112 48 Q122 44 132 46 Q144 50 148 60 Q150 66 148 72 L140 74 Q132 68 124 60 L116 52 Z" muscle="shoulders" {...mp} />
+      <M d="M112 46 Q126 42 138 47 Q152 54 154 70 Q154 78 150 84 L139 82 Q135 70 127 62 Q119 54 110 52 Z" muscle="shoulders" {...mp} />
 
-      {/* Chest — two pec shapes with separation */}
+      {/* Chest — broad, flatter pecs with separation */}
       {/* L Pec */}
-      <M d="M68 52 Q66 56 64 62 L56 70 Q52 76 54 84 Q58 92 68 94 L86 90 Q88 86 88 78 L88 66 Q88 56 86 52 L78 50 Z" muscle="chest" {...mp} />
+      <M d="M70 51 L64 58 Q60 66 60 76 Q62 86 74 88 L86 86 Q88 82 88 74 L88 60 Q88 53 85 51 Z" muscle="chest" {...mp} />
       {/* R Pec */}
-      <M d="M112 52 Q114 56 116 62 L124 70 Q128 76 126 84 Q122 92 112 94 L94 90 Q92 86 92 78 L92 66 Q92 56 94 52 L102 50 Z" muscle="chest" {...mp} />
+      <M d="M110 51 L116 58 Q120 66 120 76 Q118 86 106 88 L94 86 Q92 82 92 74 L92 60 Q92 53 95 51 Z" muscle="chest" {...mp} />
 
       {/* Biceps */}
       {/* L Bicep */}
-      <M d="M36 76 Q32 82 28 96 Q26 108 28 116 L34 118 Q38 108 40 96 Q42 86 42 78 Z" muscle="biceps" {...mp} />
+      <M d="M30 86 Q24 94 23 108 Q23 120 27 128 L35 127 Q39 114 41 102 Q42 92 41 84 Z" muscle="biceps" {...mp} />
       {/* R Bicep */}
-      <M d="M144 76 Q148 82 152 96 Q154 108 152 116 L146 118 Q142 108 140 96 Q138 86 138 78 Z" muscle="biceps" {...mp} />
+      <M d="M150 86 Q156 94 157 108 Q157 120 153 128 L145 127 Q141 114 139 102 Q138 92 139 84 Z" muscle="biceps" {...mp} />
 
       {/* Forearms */}
       {/* L Forearm */}
-      <M d="M28 120 Q24 132 20 148 Q18 160 20 168 L28 170 Q30 158 32 146 Q34 134 34 122 Z" muscle="forearms" {...mp} />
+      <M d="M27 130 Q23 142 21 158 Q20 170 24 178 L32 177 Q34 164 36 152 Q38 140 36 132 Z" muscle="forearms" {...mp} />
       {/* R Forearm */}
-      <M d="M152 120 Q156 132 160 148 Q162 160 160 168 L152 170 Q150 158 148 146 Q146 134 146 122 Z" muscle="forearms" {...mp} />
+      <M d="M153 130 Q157 142 159 158 Q160 170 156 178 L148 177 Q146 164 144 152 Q142 140 144 132 Z" muscle="forearms" {...mp} />
 
       {/* Abdominals — 6-pack shape */}
-      <M d="M78 96 L88 92 L92 92 L102 96 L102 110 Q102 118 100 126 L100 152 Q100 160 98 166 Q96 172 90 174 Q84 172 82 166 L80 152 L80 126 Q78 118 78 110 Z" muscle="abdominals" {...mp} />
+      <M d="M80 91 L88 88 L92 88 L100 91 L100 116 Q99 132 97 148 L95 160 Q93 166 90 166 Q87 166 85 160 L83 148 Q81 132 80 116 Z" muscle="abdominals" {...mp} />
       {/* Ab detail lines */}
-      <line x1="90" y1="96" x2="90" y2="170" stroke={getStroke("abdominals")} strokeWidth="0.3" opacity="0.35" />
-      <line x1="79" y1="112" x2="101" y2="112" stroke={getStroke("abdominals")} strokeWidth="0.2" opacity="0.25" />
-      <line x1="79" y1="128" x2="101" y2="128" stroke={getStroke("abdominals")} strokeWidth="0.2" opacity="0.25" />
-      <line x1="80" y1="144" x2="100" y2="144" stroke={getStroke("abdominals")} strokeWidth="0.2" opacity="0.25" />
-      <line x1="82" y1="160" x2="98" y2="160" stroke={getStroke("abdominals")} strokeWidth="0.2" opacity="0.25" />
+      <line x1="90" y1="94" x2="90" y2="162" stroke={getStroke("abdominals")} strokeWidth="0.3" opacity="0.35" />
+      <line x1="81" y1="110" x2="99" y2="110" stroke={getStroke("abdominals")} strokeWidth="0.2" opacity="0.25" />
+      <line x1="81" y1="126" x2="99" y2="126" stroke={getStroke("abdominals")} strokeWidth="0.2" opacity="0.25" />
+      <line x1="82" y1="140" x2="98" y2="140" stroke={getStroke("abdominals")} strokeWidth="0.2" opacity="0.25" />
+      <line x1="83" y1="152" x2="97" y2="152" stroke={getStroke("abdominals")} strokeWidth="0.2" opacity="0.25" />
 
-      {/* Obliques / side abs — subtle fill */}
-      <M d="M66 96 L78 96 L78 148 Q76 158 74 164 L64 162 Q62 148 62 134 Q62 118 64 104 Z" muscle="abdominals" {...mp} />
-      <M d="M114 96 L102 96 L102 148 Q104 158 106 164 L116 162 Q118 148 118 134 Q118 118 116 104 Z" muscle="abdominals" {...mp} />
+      {/* Obliques / side abs — subtle fill, taper to waist */}
+      <M d="M66 95 L80 93 L80 140 Q78 150 75 158 L67 154 Q64 140 64 124 Q64 108 66 98 Z" muscle="abdominals" {...mp} />
+      <M d="M114 95 L100 93 L100 140 Q102 150 105 158 L113 154 Q116 140 116 124 Q116 108 114 98 Z" muscle="abdominals" {...mp} />
 
       {/* Adductors (inner thigh) */}
       <M d="M82 178 Q84 188 86 202 L88 218 L90 222 L92 218 L94 202 Q96 188 98 178 L90 174 Z" muscle="adductors" {...mp} />
@@ -188,8 +188,8 @@ function FrontView({ getFill, getStroke, getGlow }: ViewProps) {
       <ellipse cx="116" cy="242" rx="8" ry="5" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" strokeWidth="0.3" />
 
       {/* Hands outline */}
-      <ellipse cx="18" cy="176" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.06)" strokeWidth="0.3" />
-      <ellipse cx="162" cy="176" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.06)" strokeWidth="0.3" />
+      <ellipse cx="19" cy="181" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.06)" strokeWidth="0.3" />
+      <ellipse cx="161" cy="181" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.06)" strokeWidth="0.3" />
 
       {/* Feet */}
       <ellipse cx="62" cy="308" rx="8" ry="4" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.06)" strokeWidth="0.3" />
@@ -205,63 +205,63 @@ function BackView({ getFill, getStroke, getGlow }: ViewProps) {
       <Defs />
 
       {/* Head */}
-      <ellipse cx="90" cy="18" rx="14" ry="17" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.1)" strokeWidth="0.4" />
+      <ellipse cx="90" cy="20" rx="13" ry="15" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.1)" strokeWidth="0.4" />
 
       {/* Neck */}
-      <M d="M80 34 Q82 32 90 31 Q98 32 100 34 L99 44 Q96 46 90 47 Q84 46 81 44 Z" muscle="neck" {...mp} />
+      <M d="M81 33 Q84 30 90 30 Q96 30 99 33 L98 43 Q94 46 90 46 Q86 46 82 43 Z" muscle="neck" {...mp} />
 
       {/* Traps — large diamond shape */}
-      <M d="M70 44 Q76 40 90 38 Q104 40 110 44 L116 56 Q112 64 106 68 L100 70 Q96 72 90 72 Q84 72 80 70 L74 68 Q68 64 64 56 Z" muscle="traps" {...mp} />
+      <M d="M68 43 Q76 38 90 36 Q104 38 112 43 L118 58 Q113 66 106 70 L99 72 Q94 74 90 74 Q86 74 81 72 L74 70 Q67 66 62 58 Z" muscle="traps" {...mp} />
 
-      {/* Rear Deltoids */}
-      <M d="M64 50 Q54 46 44 48 Q34 52 30 62 Q28 68 30 74 L38 76 Q46 70 54 62 L62 54 Z" muscle="shoulders" {...mp} />
-      <M d="M116 50 Q126 46 136 48 Q146 52 150 62 Q152 68 150 74 L142 76 Q134 70 126 62 L118 54 Z" muscle="shoulders" {...mp} />
+      {/* Rear Deltoids — wide capped */}
+      <M d="M66 48 Q52 44 40 49 Q26 56 24 72 Q24 80 28 86 L39 84 Q43 72 51 64 Q59 56 68 54 Z" muscle="shoulders" {...mp} />
+      <M d="M114 48 Q128 44 140 49 Q154 56 156 72 Q156 80 152 86 L141 84 Q137 72 129 64 Q121 56 112 54 Z" muscle="shoulders" {...mp} />
 
       {/* Triceps */}
-      <M d="M34 78 Q30 84 26 98 Q24 110 26 118 L32 120 Q36 110 38 98 Q40 88 40 80 Z" muscle="triceps" {...mp} />
-      <M d="M146 78 Q150 84 154 98 Q156 110 154 118 L148 120 Q144 110 142 98 Q140 88 140 80 Z" muscle="triceps" {...mp} />
+      <M d="M28 88 Q22 96 21 110 Q21 122 25 130 L33 129 Q37 116 39 104 Q40 94 39 86 Z" muscle="triceps" {...mp} />
+      <M d="M152 88 Q158 96 159 110 Q159 122 155 130 L147 129 Q143 116 141 104 Q140 94 141 86 Z" muscle="triceps" {...mp} />
 
       {/* Forearms (back) */}
-      <M d="M26 122 Q22 134 18 150 Q16 162 18 170 L26 172 Q28 160 30 148 Q32 136 32 124 Z" muscle="forearms" {...mp} />
-      <M d="M154 122 Q158 134 162 150 Q164 162 162 170 L154 172 Q152 160 150 148 Q148 136 148 124 Z" muscle="forearms" {...mp} />
+      <M d="M25 132 Q21 144 19 160 Q18 172 22 180 L30 179 Q32 166 34 154 Q36 142 34 134 Z" muscle="forearms" {...mp} />
+      <M d="M155 132 Q159 144 161 160 Q162 172 158 180 L150 179 Q148 166 146 154 Q144 142 146 134 Z" muscle="forearms" {...mp} />
 
       {/* Lats — wide V shape */}
       {/* L Lat */}
-      <M d="M62 62 Q58 66 54 74 Q50 84 50 96 Q52 108 56 116 L64 118 Q66 108 68 96 L70 80 L72 70 Z" muscle="lats" {...mp} />
+      <M d="M72 60 L66 64 Q54 70 49 84 Q46 98 50 112 Q56 122 68 124 L74 120 Q75 104 75 88 L74 70 Z" muscle="lats" {...mp} />
       {/* R Lat */}
-      <M d="M118 62 Q122 66 126 74 Q130 84 130 96 Q128 108 124 116 L116 118 Q114 108 112 96 L110 80 L108 70 Z" muscle="lats" {...mp} />
+      <M d="M108 60 L114 64 Q126 70 131 84 Q134 98 130 112 Q124 122 112 124 L106 120 Q105 104 105 88 L106 70 Z" muscle="lats" {...mp} />
 
       {/* Middle Back — rhomboids/mid traps */}
-      <M d="M76 68 Q82 66 90 66 Q98 66 104 68 L106 82 Q104 96 102 106 L98 110 Q94 112 90 112 Q86 112 82 110 L78 106 Q76 96 74 82 Z" muscle="middle back" {...mp} />
+      <M d="M76 70 Q82 68 90 68 Q98 68 104 70 L105 88 Q103 102 101 110 L97 114 Q93 116 90 116 Q87 116 83 114 L79 110 Q77 102 75 88 Z" muscle="middle back" {...mp} />
       {/* Spine line */}
       <line x1="90" y1="38" x2="90" y2="168" stroke="rgba(232,58,58,0.12)" strokeWidth="0.4" strokeDasharray="2 1.5" />
 
       {/* Lower Back / Erector Spinae */}
-      <M d="M78 112 Q82 110 90 110 Q98 110 102 112 L104 136 Q104 148 102 158 Q98 166 90 168 Q82 166 78 158 Q76 148 76 136 Z" muscle="lower back" {...mp} />
+      <M d="M78 116 Q83 114 90 114 Q97 114 102 116 L103 138 Q103 150 100 160 Q96 168 90 170 Q84 168 80 160 Q77 150 77 138 Z" muscle="lower back" {...mp} />
 
       {/* Glutes — large round */}
       {/* L Glute */}
-      <M d="M58 166 Q62 162 72 164 L82 168 Q86 170 88 172 L88 186 Q86 196 80 200 Q72 204 64 200 Q56 194 54 184 Q54 176 56 170 Z" muscle="glutes" {...mp} />
+      <M d="M58 168 Q63 164 73 166 L83 170 Q87 172 88 175 L88 188 Q86 198 80 202 Q72 206 64 202 Q56 196 54 186 Q54 177 56 171 Z" muscle="glutes" {...mp} />
       {/* R Glute */}
-      <M d="M122 166 Q118 162 108 164 L98 168 Q94 170 92 172 L92 186 Q94 196 100 200 Q108 204 116 200 Q124 194 126 184 Q126 176 124 170 Z" muscle="glutes" {...mp} />
+      <M d="M122 168 Q117 164 107 166 L97 170 Q93 172 92 175 L92 188 Q94 198 100 202 Q108 206 116 202 Q124 196 126 186 Q126 177 124 171 Z" muscle="glutes" {...mp} />
 
       {/* Hamstrings */}
       {/* L Ham */}
-      <M d="M56 204 Q54 216 52 234 Q52 246 54 254 L62 256 Q64 246 64 234 Q64 220 66 208 L62 202 Z" muscle="hamstrings" {...mp} />
-      <M d="M66 208 L74 204 Q76 216 76 232 Q76 244 74 254 L64 256 Q66 244 66 232 Q66 218 66 210 Z" muscle="hamstrings" {...mp} />
+      <M d="M56 206 Q54 218 52 236 Q52 248 54 256 L62 258 Q64 248 64 236 Q64 222 66 210 L62 204 Z" muscle="hamstrings" {...mp} />
+      <M d="M66 210 L74 206 Q76 218 76 234 Q76 246 74 256 L64 258 Q66 246 66 234 Q66 220 66 212 Z" muscle="hamstrings" {...mp} />
       {/* R Ham */}
-      <M d="M124 204 Q126 216 128 234 Q128 246 126 254 L118 256 Q116 246 116 234 Q116 220 114 208 L118 202 Z" muscle="hamstrings" {...mp} />
-      <M d="M114 208 L106 204 Q104 216 104 232 Q104 244 106 254 L116 256 Q114 244 114 232 Q114 218 114 210 Z" muscle="hamstrings" {...mp} />
+      <M d="M124 206 Q126 218 128 236 Q128 248 126 256 L118 258 Q116 248 116 236 Q116 222 114 210 L118 204 Z" muscle="hamstrings" {...mp} />
+      <M d="M114 210 L106 206 Q104 218 104 234 Q104 246 106 256 L116 258 Q114 246 114 234 Q114 220 114 212 Z" muscle="hamstrings" {...mp} />
 
       {/* Calves — diamond shaped */}
       {/* L Calf */}
-      <M d="M54 262 Q50 272 48 286 Q48 296 52 304 L62 306 Q66 298 66 286 Q66 274 64 264 Z" muscle="calves" {...mp} />
+      <M d="M54 264 Q50 274 48 288 Q48 298 52 306 L62 308 Q66 300 66 288 Q66 276 64 266 Z" muscle="calves" {...mp} />
       {/* R Calf */}
-      <M d="M126 262 Q130 272 132 286 Q132 296 128 304 L118 306 Q114 298 114 286 Q114 274 116 264 Z" muscle="calves" {...mp} />
+      <M d="M126 264 Q130 274 132 288 Q132 298 128 306 L118 308 Q114 300 114 288 Q114 276 116 266 Z" muscle="calves" {...mp} />
 
       {/* Hands */}
-      <ellipse cx="16" cy="178" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.06)" strokeWidth="0.3" />
-      <ellipse cx="164" cy="178" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.06)" strokeWidth="0.3" />
+      <ellipse cx="16" cy="182" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.06)" strokeWidth="0.3" />
+      <ellipse cx="164" cy="182" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.06)" strokeWidth="0.3" />
 
       {/* Feet */}
       <ellipse cx="58" cy="314" rx="8" ry="4" fill="url(#bodyGrad)" stroke="rgba(232,58,58,0.06)" strokeWidth="0.3" />

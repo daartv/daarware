@@ -9,9 +9,10 @@
       <stop offset="40%" stop-color="#C43030"/>
       <stop offset="100%" stop-color="#E85030"/>
     </linearGradient>
-    <linearGradient id="body" x1="0.5" y1="1" x2="0.5" y2="0">
-      <stop offset="0%" stop-color="#1A0808"/>
-      <stop offset="100%" stop-color="#2A0E0E"/>
+    <linearGradient id="body" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#3A1010"/>
+      <stop offset="55%" stop-color="#2A0E0E"/>
+      <stop offset="100%" stop-color="#180707"/>
     </linearGradient>
     <linearGradient id="border" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#5A1818"/>
@@ -51,50 +52,80 @@
 
   <!-- Flame/spike crown — aggressive upward spikes -->
   <g filter="url(#glow)" opacity="0.9">
-    <!-- Central flame spikes -->
-    <path d="M256 100 L248 160 L236 130 L228 175 L218 140 L212 185 L200 155 L196 195
-             L256 210
-             L316 195 L312 155 L300 185 L294 140 L284 175 L276 130 L264 160 Z"
+    <path d="M256 96 L248 156 L236 126 L228 171 L218 136 L212 181 L200 151 L196 191
+             L256 206
+             L316 191 L312 151 L300 181 L294 136 L284 171 L276 126 L264 156 Z"
       fill="url(#flame)" opacity="0.85"/>
-
-    <!-- Outer flame wisps -->
-    <path d="M196 195 L180 150 L175 200 L160 170 L165 210 L150 190 L158 225 L196 210 Z"
+    <path d="M196 191 L180 146 L175 196 L160 166 L165 206 L150 186 L158 221 L196 206 Z"
       fill="url(#flame)" opacity="0.5"/>
-    <path d="M316 195 L332 150 L337 200 L352 170 L347 210 L362 190 L354 225 L316 210 Z"
+    <path d="M316 191 L332 146 L337 196 L352 166 L347 206 L362 186 L354 221 L316 206 Z"
       fill="url(#flame)" opacity="0.5"/>
   </g>
 
-  <!-- Body silhouette — muscular upper body, dark -->
+  <!-- Muscular V-taper torso — wide shoulders, defined chest, narrow waist -->
   <g filter="url(#innerGlow)">
-    <!-- Torso -->
-    <path d="M256 210
-             C240 210 220 215 210 225
-             L195 240 C185 250 180 265 182 280
-             L186 320 C188 340 192 355 198 370
-             L208 400 L216 420 L240 420 L245 400 L250 385
-             L256 380
-             L262 385 L267 400 L272 420 L296 420 L304 400
-             L314 370 C320 355 324 340 326 320
-             L330 280 C332 265 327 250 317 240
-             L302 225 C292 215 272 210 256 210Z"
+    <!-- Traps + neck wedge -->
+    <path d="M196 248 Q210 226 238 220 Q256 217 274 220 Q302 226 316 248
+             L308 262 Q284 250 256 250 Q228 250 204 262 Z"
       fill="url(#body)" stroke="#5A1818" stroke-width="1.5"/>
 
-    <!-- Shoulder/arm masses -->
-    <path d="M210 225 L190 230 C175 235 165 250 168 268
-             L172 290 L182 285 L186 260 C188 248 195 238 205 232 Z"
-      fill="url(#body)" stroke="#5A1818" stroke-width="1"/>
-    <path d="M302 225 L322 230 C337 235 347 250 344 268
-             L340 290 L330 285 L326 260 C324 248 317 238 307 232 Z"
-      fill="url(#body)" stroke="#5A1818" stroke-width="1"/>
+    <!-- Left deltoid cap -->
+    <path d="M198 246 Q166 240 146 256 Q126 274 128 304 Q130 322 144 332
+             L168 326 Q160 302 168 282 Q180 260 202 256 Z"
+      fill="url(#body)" stroke="#5A1818" stroke-width="1.5"/>
+    <!-- Right deltoid cap -->
+    <path d="M314 246 Q346 240 366 256 Q386 274 384 304 Q382 322 368 332
+             L344 326 Q352 302 344 282 Q332 260 310 256 Z"
+      fill="url(#body)" stroke="#5A1818" stroke-width="1.5"/>
 
-    <!-- Head silhouette -->
-    <ellipse cx="256" cy="218" rx="22" ry="16"
-      fill="url(#body)" stroke="#5A1818" stroke-width="1"/>
+    <!-- Torso: chest + abs tapering to waist -->
+    <path d="M200 252
+             Q190 256 186 270
+             L182 302
+             Q180 334 192 364
+             L208 404 Q226 416 234 414 L250 394 L256 388 L262 394 L278 414
+             Q286 416 304 404 L320 364
+             Q332 334 330 302 L326 270 Q322 256 312 252
+             Q286 247 256 246 Q226 247 200 252 Z"
+      fill="url(#body)" stroke="#5A1818" stroke-width="1.5"/>
+
+    <!-- Left upper arm + bicep -->
+    <path d="M144 328 Q126 348 122 380 Q120 406 130 426
+             L152 426 Q158 404 160 378 Q162 352 168 330 Z"
+      fill="url(#body)" stroke="#5A1818" stroke-width="1.5"/>
+    <!-- Right upper arm + bicep -->
+    <path d="M368 328 Q386 348 390 380 Q392 406 382 426
+             L360 426 Q354 404 352 378 Q350 352 344 330 Z"
+      fill="url(#body)" stroke="#5A1818" stroke-width="1.5"/>
+
+    <!-- Head -->
+    <ellipse cx="256" cy="214" rx="22" ry="25"
+      fill="url(#body)" stroke="#5A1818" stroke-width="1.5"/>
+  </g>
+
+  <!-- Muscle definition lines -->
+  <g fill="none" stroke="#8B2020" stroke-width="2" opacity="0.55" stroke-linecap="round">
+    <!-- Pec shelf -->
+    <path d="M202 258 Q230 274 256 274 Q282 274 310 258"/>
+    <!-- Sternum -->
+    <path d="M256 268 L256 312"/>
+    <!-- Pec under-curves -->
+    <path d="M200 268 Q228 312 256 312"/>
+    <path d="M312 268 Q284 312 256 312"/>
+    <!-- Ab center line -->
+    <path d="M256 314 L256 392"/>
+    <!-- Ab cross lines -->
+    <path d="M226 330 L286 330" opacity="0.4"/>
+    <path d="M228 352 L284 352" opacity="0.4"/>
+    <path d="M232 374 L280 374" opacity="0.4"/>
+    <!-- Delt / arm separation -->
+    <path d="M150 300 Q158 312 168 320" opacity="0.4"/>
+    <path d="M362 300 Q354 312 344 320" opacity="0.4"/>
   </g>
 
   <!-- Glowing eyes -->
-  <circle cx="248" cy="216" r="2.5" fill="#E85030" opacity="0.9" filter="url(#glow)"/>
-  <circle cx="264" cy="216" r="2.5" fill="#E85030" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="247" cy="210" r="3" fill="#E85030" opacity="0.95" filter="url(#glow)"/>
+  <circle cx="265" cy="210" r="3" fill="#E85030" opacity="0.95" filter="url(#glow)"/>
 
   <!-- Subtle scan line effect -->
   <g opacity="0.06">
