@@ -1,76 +1,58 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { useWorkoutLogs } from "@/lib/hooks/use-workout-logs";
 import { getExerciseById } from "@/lib/exercise-data";
 import { formatDate } from "@/lib/utils";
 import {
-  formatExerciseExport,
+  formatWorkoutExport,
   formatWorkoutDuration,
 } from "@/lib/format-export";
-import type { WorkoutExercise, WorkoutLog } from "@/lib/db";
-
-interface Entry {
-  log: WorkoutLog;
-  exercise: WorkoutExercise;
-  /** Stable identifier across renders, since exercise objects don't carry their own id. */
-  key: string;
-}
+import type { WorkoutLog } from "@/lib/db";
 
 export default function HistoryPage() {
   const logs = useWorkoutLogs();
 
-  const entries = useMemo<Entry[]>(() => {
-    const out: Entry[] = [];
-    for (const log of logs) {
-      log.exercises.forEach((exercise, idx) => {
-        out.push({
-          log,
-          exercise,
-          key: `${log.id}-${idx}-${exercise.exerciseId}`,
-        });
-      });
-    }
-    return out;
-  }, [logs]);
-
   return (
     <div>
       <Header
-        title="Exercise Log"
-        subtitle={`${entries.length} entries`}
+        title="Workout History"
+        subtitle={`${logs.length} workout${logs.length === 1 ? "" : "s"}`}
         back
       />
 
       <div className="px-4 pt-4 space-y-2 max-w-lg mx-auto pb-4">
-        {entries.length === 0 ? (
+        {logs.length === 0 ? (
           <div className="cyber-card text-center py-10">
             <p className="text-cyber-text-muted text-sm">
-              No exercises logged yet. Log a workout to start your history.
+              No workouts logged yet. Log a workout to start your history.
             </p>
           </div>
         ) : (
-          entries.map((entry) => (
-            <HistoryRow key={entry.key} entry={entry} />
-          ))
+          logs.map((log) => <WorkoutRow key={log.id} log={log} />)
         )}
       </div>
     </div>
   );
 }
 
-function HistoryRow({ entry }: { entry: Entry }) {
+function WorkoutRow({ log }: { log: WorkoutLog }) {
   const router = useRouter();
-  const { log, exercise } = entry;
-  const info = getExerciseById(exercise.exerciseId);
-  const name = info?.name ?? exercise.exerciseId;
   const duration = formatWorkoutDuration(log);
-  const nonEmptySets = exercise.sets.filter(
-    (s) => s.weight > 0 || s.reps > 0
+  const nonEmptyExercises = log.exercises.filter((ex) =>
+    ex.sets.some((s) => s.weight > 0 || s.reps > 0)
   );
-  const setSummary = formatSetSummary(nonEmptySets);
+  const totalSets = nonEmptyExercises.reduce(
+    (n, ex) => n + ex.sets.filter((s) => s.weight > 0 || s.reps > 0).length,
+    0
+  );
+
+  const exerciseNames = nonEmptyExercises.map(
+    (ex) => getExerciseById(ex.exerciseId)?.name ?? ex.exerciseId
+  );
+  const preview = exerciseNames.join(", ");
 
   const [copied, setCopied] = useState(false);
 
@@ -82,12 +64,15 @@ function HistoryRow({ entry }: { entry: Entry }) {
     e.stopPropagation();
     try {
       await navigator.clipboard.writeText(
-        formatExerciseExport(exercise, name, log)
+        formatWorkoutExport(
+          log,
+          (id) => getExerciseById(id)?.name ?? id
+        )
       );
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1500);
     } catch (err) {
-      console.error("Failed to copy exercise:", err);
+      console.error("Failed to copy workout:", err);
     }
   };
 
@@ -106,7 +91,7 @@ function HistoryRow({ entry }: { entry: Entry }) {
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold truncate">{name}</p>
+          <p className="text-sm font-semibold truncate">{log.name}</p>
           <div className="flex items-center gap-2 mt-0.5 flex-wrap">
             <span className="text-[0.65rem] text-cyber-text-muted font-mono">
               {formatDate(log.date)}
@@ -116,22 +101,22 @@ function HistoryRow({ entry }: { entry: Entry }) {
                 {duration}
               </span>
             )}
-            {info?.primaryMuscles?.[0] && (
-              <span className="text-[0.55rem] text-cyber-cyan capitalize">
-                {info.primaryMuscles[0]}
-              </span>
-            )}
+            <span className="text-[0.6rem] text-cyber-text-muted font-mono">
+              {nonEmptyExercises.length} exercise
+              {nonEmptyExercises.length === 1 ? "" : "s"} &middot; {totalSets}{" "}
+              set{totalSets === 1 ? "" : "s"}
+            </span>
           </div>
-          {setSummary && (
-            <p className="text-xs font-mono text-cyber-text-muted mt-1">
-              {setSummary}
+          {preview && (
+            <p className="text-xs text-cyber-text-muted mt-1 truncate">
+              {preview}
             </p>
           )}
         </div>
         <button
           onClick={handleCopy}
           className="cyber-btn text-[0.65rem] py-1 px-2 flex-shrink-0"
-          aria-label={`Copy ${name} summary to clipboard`}
+          aria-label={`Copy ${log.name} summary to clipboard`}
         >
           {copied ? (
             <span className="text-cyber-green">Copied!</span>
@@ -157,18 +142,4 @@ function HistoryRow({ entry }: { entry: Entry }) {
       </div>
     </div>
   );
-}
-
-function formatSetSummary(sets: { weight: number; reps: number }[]): string {
-  if (sets.length === 0) return "";
-  const allSameWeight =
-    sets.every((s) => s.weight === sets[0].weight) && sets[0].weight > 0;
-  if (allSameWeight) {
-    return `${sets.length} sets · ${sets[0].weight}kg × ${sets
-      .map((s) => s.reps)
-      .join("/")}`;
-  }
-  return `${sets.length} sets · ${sets
-    .map((s) => `${s.weight}×${s.reps}`)
-    .join(", ")}`;
 }
