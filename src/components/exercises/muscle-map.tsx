@@ -14,16 +14,18 @@ export function MuscleMap({ primaryMuscles, secondaryMuscles }: MuscleMapProps) 
   const primary = new Set(primaryMuscles.map((m) => m.toLowerCase()));
   const secondary = new Set(secondaryMuscles.map((m) => m.toLowerCase()));
 
+  // Worked muscles use the design-system red accent; everything else uses the
+  // primary cyan accent at low intensity (the theme has no blue token).
   const getFill = (muscle: string) => {
     if (primary.has(muscle)) return "rgba(232, 58, 58, 0.8)";
     if (secondary.has(muscle)) return "rgba(232, 58, 58, 0.4)";
-    return "rgba(47, 130, 217, 0.32)";
+    return "rgba(47, 217, 217, 0.18)";
   };
 
   const getStroke = (muscle: string) => {
-    if (primary.has(muscle)) return "rgba(255, 90, 90, 0.95)";
-    if (secondary.has(muscle)) return "rgba(232, 58, 58, 0.6)";
-    return "rgba(90, 160, 230, 0.6)";
+    if (primary.has(muscle)) return "rgba(232, 58, 58, 1)";
+    if (secondary.has(muscle)) return "rgba(232, 58, 58, 0.55)";
+    return "rgba(47, 217, 217, 0.45)";
   };
 
   const getGlow = (muscle: string) => {
@@ -84,8 +86,8 @@ function Defs() {
         <feComposite in="SourceGraphic" in2="blur" operator="over" />
       </filter>
       <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="rgba(47,130,217,0.14)" />
-        <stop offset="100%" stopColor="rgba(47,130,217,0.05)" />
+        <stop offset="0%" stopColor="rgba(47,217,217,0.12)" />
+        <stop offset="100%" stopColor="rgba(47,217,217,0.04)" />
       </linearGradient>
     </defs>
   );
@@ -120,7 +122,7 @@ function FrontView({ getFill, getStroke, getGlow }: ViewProps) {
       <Defs />
 
       {/* Head */}
-      <ellipse cx="90" cy="20" rx="13" ry="15" fill="url(#bodyGrad)" stroke="rgba(90,160,230,0.25)" strokeWidth="0.4" />
+      <ellipse cx="90" cy="20" rx="13" ry="15" fill="url(#bodyGrad)" stroke="rgba(47,217,217,0.28)" strokeWidth="0.4" />
 
       {/* Neck */}
       <M d="M81 33 Q84 30 90 30 Q96 30 99 33 L98 45 Q94 48 90 48 Q86 48 82 45 Z" muscle="neck" {...mp} />
@@ -188,12 +190,12 @@ function FrontView({ getFill, getStroke, getGlow }: ViewProps) {
       <ellipse cx="116" cy="242" rx="8" ry="5" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" strokeWidth="0.3" />
 
       {/* Hands outline */}
-      <ellipse cx="19" cy="181" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(90,160,230,0.18)" strokeWidth="0.3" />
-      <ellipse cx="161" cy="181" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(90,160,230,0.18)" strokeWidth="0.3" />
+      <ellipse cx="19" cy="181" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(47,217,217,0.2)" strokeWidth="0.3" />
+      <ellipse cx="161" cy="181" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(47,217,217,0.2)" strokeWidth="0.3" />
 
       {/* Feet */}
-      <ellipse cx="62" cy="308" rx="8" ry="4" fill="url(#bodyGrad)" stroke="rgba(90,160,230,0.18)" strokeWidth="0.3" />
-      <ellipse cx="118" cy="308" rx="8" ry="4" fill="url(#bodyGrad)" stroke="rgba(90,160,230,0.18)" strokeWidth="0.3" />
+      <ellipse cx="62" cy="308" rx="8" ry="4" fill="url(#bodyGrad)" stroke="rgba(47,217,217,0.2)" strokeWidth="0.3" />
+      <ellipse cx="118" cy="308" rx="8" ry="4" fill="url(#bodyGrad)" stroke="rgba(47,217,217,0.2)" strokeWidth="0.3" />
     </svg>
   );
 }
@@ -205,7 +207,7 @@ function BackView({ getFill, getStroke, getGlow }: ViewProps) {
       <Defs />
 
       {/* Head */}
-      <ellipse cx="90" cy="20" rx="13" ry="15" fill="url(#bodyGrad)" stroke="rgba(90,160,230,0.25)" strokeWidth="0.4" />
+      <ellipse cx="90" cy="20" rx="13" ry="15" fill="url(#bodyGrad)" stroke="rgba(47,217,217,0.28)" strokeWidth="0.4" />
 
       {/* Neck */}
       <M d="M81 33 Q84 30 90 30 Q96 30 99 33 L98 43 Q94 46 90 46 Q86 46 82 43 Z" muscle="neck" {...mp} />
@@ -234,7 +236,7 @@ function BackView({ getFill, getStroke, getGlow }: ViewProps) {
       {/* Middle Back — rhomboids/mid traps */}
       <M d="M76 70 Q82 68 90 68 Q98 68 104 70 L105 88 Q103 102 101 110 L97 114 Q93 116 90 116 Q87 116 83 114 L79 110 Q77 102 75 88 Z" muscle="middle back" {...mp} />
       {/* Spine line */}
-      <line x1="90" y1="38" x2="90" y2="168" stroke="rgba(90,160,230,0.22)" strokeWidth="0.4" strokeDasharray="2 1.5" />
+      <line x1="90" y1="38" x2="90" y2="168" stroke="rgba(47,217,217,0.22)" strokeWidth="0.4" strokeDasharray="2 1.5" />
 
       {/* Lower Back / Erector Spinae */}
       <M d="M78 116 Q83 114 90 114 Q97 114 102 116 L103 138 Q103 150 100 160 Q96 168 90 170 Q84 168 80 160 Q77 150 77 138 Z" muscle="lower back" {...mp} />
@@ -260,12 +262,12 @@ function BackView({ getFill, getStroke, getGlow }: ViewProps) {
       <M d="M126 264 Q130 274 132 288 Q132 298 128 306 L118 308 Q114 300 114 288 Q114 276 116 266 Z" muscle="calves" {...mp} />
 
       {/* Hands */}
-      <ellipse cx="16" cy="182" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(90,160,230,0.18)" strokeWidth="0.3" />
-      <ellipse cx="164" cy="182" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(90,160,230,0.18)" strokeWidth="0.3" />
+      <ellipse cx="16" cy="182" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(47,217,217,0.2)" strokeWidth="0.3" />
+      <ellipse cx="164" cy="182" rx="5" ry="8" fill="url(#bodyGrad)" stroke="rgba(47,217,217,0.2)" strokeWidth="0.3" />
 
       {/* Feet */}
-      <ellipse cx="58" cy="314" rx="8" ry="4" fill="url(#bodyGrad)" stroke="rgba(90,160,230,0.18)" strokeWidth="0.3" />
-      <ellipse cx="122" cy="314" rx="8" ry="4" fill="url(#bodyGrad)" stroke="rgba(90,160,230,0.18)" strokeWidth="0.3" />
+      <ellipse cx="58" cy="314" rx="8" ry="4" fill="url(#bodyGrad)" stroke="rgba(47,217,217,0.2)" strokeWidth="0.3" />
+      <ellipse cx="122" cy="314" rx="8" ry="4" fill="url(#bodyGrad)" stroke="rgba(47,217,217,0.2)" strokeWidth="0.3" />
     </svg>
   );
 }
