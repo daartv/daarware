@@ -229,12 +229,12 @@ function ExerciseRow({
   onToggleFav: () => void;
 }) {
   return (
-    <div className="flex items-center border-b border-cyber-border/50 hover:bg-cyber-surface-hover transition-colors">
+    <div className={`flex items-center border-b border-cyber-border/50 hover:bg-cyber-surface-hover transition-colors ${isFav ? "bg-cyber-yellow-dim/20" : ""}`}>
       <button
         onClick={() => onSelect(exercise.id)}
         className="flex-1 text-left px-4 py-2.5"
       >
-        <p className="text-sm font-semibold">{exercise.name}</p>
+        <p className={`text-sm font-semibold ${isFav ? "text-cyber-yellow" : ""}`}>{exercise.name}</p>
         <div className="flex gap-1 mt-0.5">
           {exercise.primaryMuscles.map((m) => (
             <span key={m} className="text-[0.55rem] text-cyber-cyan capitalize">{m}</span>

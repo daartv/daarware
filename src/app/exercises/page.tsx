@@ -220,10 +220,10 @@ function ExerciseLibRow({
   onToggleFav: () => void;
 }) {
   return (
-    <div className="cyber-card py-2.5 px-3">
+    <div className={`cyber-card py-2.5 px-3 ${isFav ? "bg-cyber-yellow-dim/20 border-cyber-yellow/30" : ""}`}>
       <div className="flex items-start justify-between gap-2">
         <Link href={`/exercises/${exercise.id}`} className="flex-1 min-w-0">
-          <p className="text-sm font-semibold truncate">{exercise.name}</p>
+          <p className={`text-sm font-semibold truncate ${isFav ? "text-cyber-yellow" : ""}`}>{exercise.name}</p>
           <div className="flex flex-wrap gap-1 mt-1">
             {exercise.primaryMuscles.map((m) => (
               <span key={m} className="cyber-badge cyber-badge-cyan text-[0.6rem]">{m}</span>

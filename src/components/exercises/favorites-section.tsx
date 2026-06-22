@@ -14,7 +14,7 @@ export function FavoritesSection({
   count: number;
   children: React.ReactNode;
 }) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   if (count === 0) return null;
 
